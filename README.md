@@ -1,5 +1,7 @@
 # Feature Subsampling in Hybrid Wi-Fi RTT–RSS Fingerprinting
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23092701.svg)](https://doi.org/10.5281/zenodo.23092701)
+
 Code, experiment outputs, and LaTeX source for the paper
 
 > **Feature Subsampling in Hybrid Wi-Fi RTT–RSS Fingerprinting: Radio-Map Density, Ratio Selection, and Calibration With Clustered Scans**
@@ -109,7 +111,11 @@ cd supplementary && latexmk -pdf supplementary_material.tex  # supplementary mat
 
 ## Citation
 
-If you use this code, please cite the paper (citation to be added after publication).
+If you use this code, please cite the paper (citation to be added after publication) and the archived code:
+
+> N. A. Nouri and S. Naouri, *Feature subsampling in hybrid Wi-Fi RTT–RSS fingerprinting: code and experiment outputs*, version v1.0, Zenodo, 2026. https://doi.org/10.5281/zenodo.23092701
+
+Citation metadata is also provided in [`CITATION.cff`](CITATION.cff).
 
 ## License
 
