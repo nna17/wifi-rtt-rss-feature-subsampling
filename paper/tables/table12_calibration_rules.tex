@@ -1,0 +1,26 @@
+\begin{table*}[!t]
+\centering
+\caption{Split-conformal calibration of circular regions when the $\sim$120 scans of each RP are correlated, over repeated random RP-level fit/calibration splits ($25\%$ of training RPs for calibration; coverage on the official test set). Scan-level: all calibration scans treated as exchangeable. Group: one randomly chosen scan per calibration RP, with ordinary split conformal on these $G$ scores, which is valid when RPs are exchangeable~\cite{Dunn02102023}. RP-count: pooled scores with the finite-sample level computed from $G$. The guarantee of a valid method concerns the mean coverage over calibration draws; individual splits vary around it.}
+\label{tab:calibration_rules}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccccc}
+\toprule
+ & & \multicolumn{3}{c}{$1-\alpha=0.90$} & \multicolumn{3}{c}{$1-\alpha=0.95$} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}
+Dataset & Calibration rule & Mean cov. & Min cov. & Area (m$^2$) & Mean cov. & Min cov. & Area (m$^2$) \\
+\midrule
+Building ($G=121$, 10 splits) & Scan-level (standard) & 0.940 & 0.917 & 5.98 & 0.974 & 0.962 & 9.80 \\
+ & Group, one scan per RP (valid) & 0.946 & 0.913 & 6.55 & 0.978 & 0.959 & 11.45 \\
+ & RP-count (conservative heuristic) & 0.946 & 0.924 & 6.31 & 0.978 & 0.965 & 10.97 \\
+\midrule
+Apartment ($G=21$, 20 splits) & Scan-level (standard) & 0.894 & 0.838 & 6.63 & 0.931 & 0.895 & 9.12 \\
+ & Group, one scan per RP (valid) & 0.916 & 0.871 & 8.10 & 0.947 & 0.897 & 11.88 \\
+ & RP-count (conservative heuristic) & 0.932 & 0.896 & 9.25 & 0.995 & 0.968 & 33.19 \\
+\midrule
+Office ($G=7$, 20 splits) & Scan-level (standard) & 0.947 & 0.809 & 4.09 & 0.958 & 0.853 & 5.02 \\
+ & Group, one scan per RP (valid) & \multicolumn{3}{c}{no finite region ($G<1/\alpha-1$)} & \multicolumn{3}{c}{no finite region ($G<1/\alpha-1$)} \\
+ & RP-count (conservative heuristic) & 0.980 & 0.898 & 8.88 & 0.980 & 0.898 & 8.88 \\
+\bottomrule
+\end{tabular}
+\end{table*}

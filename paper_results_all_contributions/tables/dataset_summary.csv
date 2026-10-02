@@ -1,0 +1,4 @@
+dataset,grid_size_m,n_aps,n_features,train_rows,test_rows,train_reference_points,test_reference_points,train_test_rp_overlap,published_hybrid_metric_m
+building,0.6,13,26,57960,19080,483,159,0,0.6
+office,0.455,3,6,3360,1080,28,9,0,0.38
+apartment,0.48,4,8,9720,3480,81,29,0,0.59

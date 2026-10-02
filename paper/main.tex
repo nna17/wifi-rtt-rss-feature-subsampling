@@ -1,0 +1,65 @@
+%% Manuscript for submission to the Journal of Network and Computer Applications (Elsevier).
+%% Compile:  latexmk -pdf main.tex   (pdflatex + BibTeX, elsarticle class)
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[section]{placeins}
+\usepackage{lineno}
+% Tables were designed for a wider text block; scale any tabular that is wider than the text.
+\usepackage{adjustbox}
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{tabular}{\begin{adjustbox}{max width=\linewidth}}
+\AfterEndEnvironment{tabular}{\end{adjustbox}}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\emergencystretch}{2em}
+\journal{Journal of Network and Computer Applications}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Feature Subsampling in Hybrid Wi-Fi RTT--RSS Fingerprinting: Radio-Map Density, Ratio Selection, and Calibration With Clustered Scans}
+
+\author[csaail]{Nabil Abdelkader Nouri\corref{cor1}}
+\ead{nabil.nouri@gmail.com}
+\cortext[cor1]{Corresponding author.}
+\author[swjtu]{Salim Naouri}
+
+\affiliation[csaail]{organization={Computer Science and Applied Artificial Intelligence Laboratory (CSAAIL), University of Djelfa},
+            city={Djelfa},
+            country={Algeria}}
+
+\affiliation[swjtu]{organization={Department of Computer Science, Southwest Jiaotong University},
+            city={Chengdu},
+            country={China}}
+
+\input{sections/01_abstract}
+
+\end{frontmatter}
+
+\linenumbers
+
+\input{sections/02_introduction}
+\input{sections/03_related_work}
+\input{sections/04_system_model}
+\input{sections/05_proposed_method}
+\input{sections/06_experimental_setup}
+\input{sections/07_results}
+\input{sections/08_discussion}
+\input{sections/09_limitations}
+\input{sections/10_conclusion}
+\input{sections/11_availability}
+\input{sections/12_declarations}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references_recent_wifi_rtt_rss}
+
+\end{document}

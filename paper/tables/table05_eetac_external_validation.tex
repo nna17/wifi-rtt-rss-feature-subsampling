@@ -1,0 +1,20 @@
+\begin{table*}[!t]
+\centering
+\caption{External validation on the independent EETAC auditorium dataset (both acquisition days pooled after frame alignment; seed 42). Medium: four Google APs; High: four Google and three Linksys/Belkin APs. Sample-level CV is stratified by RP; RP-grouped CV holds out complete RPs of the $5\times5$ grid.}
+\label{tab:eetac_external}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llccccccc}
+\toprule
+ & & \multicolumn{3}{c}{2D RMSE (m)} & \multicolumn{2}{c}{$P_{90}$ (m)} & \multicolumn{2}{c}{$P_{95}$ (m)} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+Scenario & Protocol & F1.0 & F0.7 & Impr. (\%) & F1.0 & F0.7 & F1.0 & F0.7 \\
+\midrule
+Medium (4 APs) & Sample-level CV & 0.331 & \textbf{0.292} & 11.93 & \textbf{0.014} & 0.052 & \textbf{0.134} & 0.203 \\
+ & RP-grouped CV & 2.855 & \textbf{2.462} & 13.75 & 4.595 & \textbf{3.806} & 5.255 & \textbf{4.312} \\
+\midrule
+High (7 APs) & Sample-level CV & 0.329 & \textbf{0.292} & 11.35 & \textbf{0.024} & 0.053 & \textbf{0.136} & 0.214 \\
+ & RP-grouped CV & 2.833 & \textbf{2.445} & 13.69 & 4.497 & \textbf{3.789} & 5.183 & \textbf{4.231} \\
+\bottomrule
+\end{tabular}
+\end{table*}

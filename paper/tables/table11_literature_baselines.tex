@@ -1,0 +1,22 @@
+\begin{table*}[!t]
+\centering
+\caption{Comparison with tree-ensemble and fingerprinting alternatives from the literature (paper-compatible metric, m). Test: official RP-disjoint test set. CV: pooled 5-fold RP-grouped CV on the training RPs. Office and Apartment: mean of three seeds; Building: one seed. Best value per column in bold.}
+\label{tab:literature_baselines}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{Building} & \multicolumn{2}{c}{Apartment} & \multicolumn{2}{c}{Office} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Model & Test & CV & Test & CV & Test & CV \\
+\midrule
+RF, $\rho=1.0$ (bagging) \cite{feng2026robust} & 0.605 & 0.887 & 0.598 & 0.705 & 0.373 & 0.602 \\
+RF, $\rho=0.7$ (this work) & 0.526 & 0.707 & \textbf{0.564} & 0.617 & \textbf{0.339} & 0.464 \\
+RF, $m_{\mathrm{try}}=\lfloor p/3\rfloor$ \cite{breiman2001random} & \textbf{0.515} & \textbf{0.649} & 0.640 & 0.621 & 0.351 & 0.424 \\
+Extremely randomized trees \cite{geurts2006extremely} & 0.543 & 0.698 & 0.616 & \textbf{0.611} & 0.346 & \textbf{0.386} \\
+Rotation Forest \cite{rodriguez2006rotation} & 0.520 & 0.652 & 0.704 & 0.619 & 0.386 & 0.394 \\
+Gradient-boosted trees (500 iterations) & 0.620 & 0.765 & 0.834 & 0.683 & 0.352 & 0.431 \\
+WKNN, $k=5$ \cite{bahl2000radar} & 0.941 & 1.139 & 0.853 & 0.842 & 0.401 & 0.465 \\
+\bottomrule
+\end{tabular}
+\end{table*}

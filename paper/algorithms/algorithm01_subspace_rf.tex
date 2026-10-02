@@ -1,0 +1,48 @@
+\begin{algorithm}[t]
+	\caption{RP-Aware Random-Subspace RTT--RSS Localization}
+	\label{alg:subspace_rf}
+	\begin{algorithmic}[1]
+
+		\Require
+		Fingerprint dataset
+		$\mathcal{D}=\{(\mathbf{z}_i,\mathbf{u}_i,g_i)\}_{i=1}^{N}$;
+		number of trees $T$;
+		fixed subspace ratio $\rho$ (default $0.7$);
+		number of grouped folds $K$
+
+		\Ensure
+		Final positioning model $f^{*}$; RP-disjoint validation estimate
+
+		\State $m_{\mathrm{try}} \leftarrow \max(1,\lfloor \rho p \rfloor)$
+
+		\For{$k=1$ to $K$}
+		\Comment{validation only}
+
+		\State Construct RP-disjoint training and validation sets:
+		$\mathcal{G}^{(k)}_{\mathrm{train}}\cap\mathcal{G}^{(k)}_{\mathrm{val}}=\varnothing$
+
+		\State $f^{(k)} \leftarrow \mathrm{RF}\left(\mathcal{D}^{(-k)};\,T,\,m_{\mathrm{try}}\right)$
+
+		\State $\hat{\mathbf{u}}_i^{\mathrm{OOF}} \leftarrow f^{(k)}(\mathbf{z}_i)$ for all $i$ with $g_i\in\mathcal{G}^{(k)}_{\mathrm{val}}$
+
+		\EndFor
+
+		\State Report metrics on the pooled out-of-fold predictions
+		$\{\hat{\mathbf{u}}_i^{\mathrm{OOF}}\}_{i=1}^{N}$
+
+		\State Train the final model on all available training RPs:
+		\[
+		f^{*}
+		\leftarrow
+		\mathrm{RF}
+		\left(
+		\mathcal{D};\,
+		T,\,
+		m_{\mathrm{try}}
+		\right)
+		\]
+
+		\State \Return $f^{*}$
+
+	\end{algorithmic}
+\end{algorithm}

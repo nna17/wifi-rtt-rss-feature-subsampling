@@ -1,0 +1,18 @@
+\begin{table}[!t]
+\centering
+\caption{Effect of training the proposed predictor on the grouped fitting subset versus all official training reference points (paper-compatible metric).}
+\label{tab:data_utilization}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lccccc}
+\toprule
+ & \multicolumn{2}{c}{Training RPs} & \multicolumn{2}{c}{Error (m)} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Dataset & Subset & 100\% & Subset & 100\% & Impr. (\%) \\
+\midrule
+Building  & 362 & 483 & 0.594 & \textbf{0.513} & 13.59 \\
+Office    & 21  & 28  & 0.345 & \textbf{0.343} & 0.38 \\
+Apartment & 60  & 81  & 0.645 & \textbf{0.569} & 11.70 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,28 @@
+FINAL PAPER EXPERIMENT SUITE COMPLETED
+Elapsed seconds: 406.431691
+Project root: C:\Users\Mo7AmjMiro\Desktop\ZZZZZ
+Paper results: C:\Users\Mo7AmjMiro\Desktop\ZZZZZ\paper_results
+
+Main EETAC scenarios actually included:
+  - Medium_4Google
+  - High_4Google_3Linksys
+
+Generated tables:
+  - table01_dataset_summary.csv
+  - table02_model_configuration.csv
+  - table03_original_accuracy.csv
+  - table04_grouped_cv.csv
+  - table05_eetac_external_validation.csv
+  - table06_cross_day.csv
+  - table07_efficiency.csv
+  - table08_data_utilization.csv
+  - table09_uncertainty.csv
+
+Generated figures:
+  - fig06_original_accuracy.pdf
+  - fig07_error_cdf.pdf
+  - fig08_grouped_cv.pdf
+  - fig09_eetac_external_validation.pdf
+  - fig10_accuracy_efficiency.pdf
+  - fig11_cross_day.pdf
+  - fig12_uncertainty_area_coverage.pdf

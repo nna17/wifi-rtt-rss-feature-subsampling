@@ -1,0 +1,3 @@
+Configuration,Role,Trees,max_features,Maximum depth,Minimum leaf,Bootstrap,RP-grouped selection
+RF300-F1.0,Full-feature baseline,300,1.0,None,1,Yes,No retuning
+RF300-F0.7,Proposed random-subspace RF,300,0.7,None,1,Yes,Frozen before EETAC

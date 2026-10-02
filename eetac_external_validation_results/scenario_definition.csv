@@ -1,0 +1,6 @@
+scenario,n_physical_aps,physical_aps,n_features,note
+Medium_4Google,4,G1;G2;G3;G4,8,Unambiguous 4-Google scenario
+Low_diag_A,2,G2;G4,4,Topology-defined variant; do not cherry-pick by accuracy
+Low_diag_B,2,G1;G3,4,Topology-defined variant; do not cherry-pick by accuracy
+High_4Google_3Linksys,7,G1;G2;G3;G4;L1;L2;L3,14,Topology-defined variant; do not cherry-pick by accuracy
+All_common_exploratory,7,G1;G2;G3;G4;L1;L2;L3,14,Exploratory

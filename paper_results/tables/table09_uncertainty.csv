@@ -1,0 +1,37 @@
+Dataset,Protocol,Confidence,Region,Coverage,Area (m^2),Calibration RPs
+Building,Strict split conformal,0.9,Circle,0.9520440251572329,8.208579479970473,121.0
+Building,Strict split conformal,0.9,Ellipse,0.9538784067085954,7.904280060957389,121.0
+Building,Strict split conformal (RP-corrected),0.9,Circle,0.9632599580712788,9.234183817661396,121.0
+Building,Strict split conformal (RP-corrected),0.9,Ellipse,0.960377358490566,8.55223196251727,121.0
+Building,Grouped-OOF empirical,0.9,Circle,0.965251572327044,5.689072437273908,
+Building,Grouped-OOF empirical,0.9,Ellipse,0.9653039832285116,5.323559542381188,
+Building,Strict split conformal,0.95,Circle,0.9840670859538784,16.711991147295063,121.0
+Building,Strict split conformal,0.95,Ellipse,0.984958071278826,15.917323955729648,121.0
+Building,Strict split conformal (RP-corrected),0.95,Circle,0.9876310272536688,20.25389810317583,121.0
+Building,Strict split conformal (RP-corrected),0.95,Ellipse,0.9891509433962264,19.632891487160908,121.0
+Building,Grouped-OOF empirical,0.95,Circle,0.9833333333333332,9.282438680820531,
+Building,Grouped-OOF empirical,0.95,Ellipse,0.9889937106918238,8.656048820641711,
+Office,Strict split conformal,0.9,Circle,0.999074074074074,3.283752305997353,7.0
+Office,Strict split conformal,0.9,Ellipse,0.9648148148148148,3.1381646863305983,7.0
+Office,Strict split conformal (RP-corrected),0.9,Circle,1.0,14.462155291225276,7.0
+Office,Strict split conformal (RP-corrected),0.9,Ellipse,1.0,14.398212484373138,7.0
+Office,Grouped-OOF empirical,0.9,Circle,0.9824074074074074,2.658823172398177,
+Office,Grouped-OOF empirical,0.9,Ellipse,0.9425925925925924,2.499113929334501,
+Office,Strict split conformal,0.95,Circle,0.999074074074074,3.833857888255876,7.0
+Office,Strict split conformal,0.95,Ellipse,0.9824074074074074,3.548099551867603,7.0
+Office,Strict split conformal (RP-corrected),0.95,Circle,1.0,14.462155291225276,7.0
+Office,Strict split conformal (RP-corrected),0.95,Ellipse,1.0,14.398212484373138,7.0
+Office,Grouped-OOF empirical,0.95,Circle,0.999074074074074,6.131520482582588,
+Office,Grouped-OOF empirical,0.95,Ellipse,0.999074074074074,5.438467405820098,
+Apartment,Strict split conformal,0.9,Circle,0.8275862068965517,6.39493552777896,21.0
+Apartment,Strict split conformal,0.9,Ellipse,0.8218390804597702,5.89105962811067,21.0
+Apartment,Strict split conformal (RP-corrected),0.9,Circle,0.9543103448275864,10.221385326754834,21.0
+Apartment,Strict split conformal (RP-corrected),0.9,Ellipse,0.9229885057471264,9.704036473027186,21.0
+Apartment,Grouped-OOF empirical,0.9,Circle,0.9201149425287356,6.073823540886464,
+Apartment,Grouped-OOF empirical,0.9,Ellipse,0.9008620689655172,5.277781049904184,
+Apartment,Strict split conformal,0.95,Circle,0.9491379310344829,9.933247496354422,21.0
+Apartment,Strict split conformal,0.95,Ellipse,0.917528735632184,9.50504857160214,21.0
+Apartment,Strict split conformal (RP-corrected),0.95,Circle,0.9974137931034482,15.8656923306618,21.0
+Apartment,Strict split conformal (RP-corrected),0.95,Ellipse,0.9971264367816092,17.314184197210167,21.0
+Apartment,Grouped-OOF empirical,0.95,Circle,0.9422413793103448,8.44789042602138,
+Apartment,Grouped-OOF empirical,0.95,Ellipse,0.9350574712643678,7.486466968930408,

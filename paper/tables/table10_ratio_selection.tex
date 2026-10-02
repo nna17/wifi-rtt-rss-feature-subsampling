@@ -1,0 +1,23 @@
+\begin{table*}[!t]
+\centering
+\caption{Selecting the subspace ratio. For each rule, the selected $\rho$ and the resulting regret on the official RP-disjoint test set (percentage above the best ratio of the sweep, $\rho\in\{0.2,0.35,0.5,0.7,0.85,1.0\}$, paper-compatible metric, seed 0). The test set is used only to score the rules, never to select $\rho$.}
+\label{tab:ratio_selection}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccccc}
+\toprule
+ & \multicolumn{2}{c}{Building} & \multicolumn{2}{c}{Apartment} & \multicolumn{2}{c}{Office} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Selection rule & $\rho$ & Regret (\%) & $\rho$ & Regret (\%) & $\rho$ & Regret (\%) & Worst (\%) \\
+\midrule
+Out-of-bag error (sample level) & 0.35 & 1.0 & 0.50 & 1.9 & 0.35 & 6.0 & 6.0 \\
+5-fold sample-level CV & 0.35 & 1.0 & 0.50 & 1.9 & 0.35 & 6.0 & 6.0 \\
+5-fold RP-grouped CV & 0.35 & 1.0 & 0.50 & 1.9 & 0.20 & 22.5 & 22.5 \\
+Leave-one-environment-out minimax (RP-grouped CV) & 0.35 & 1.0 & 0.35 & 12.5 & 0.35 & 6.0 & 12.5 \\
+Fixed $\rho=1.0$ (bagging; Feng et al.) & 1.00 & 19.7 & 1.00 & 6.4 & 1.00 & 12.1 & 19.7 \\
+Fixed $\rho=0.7$ (this work) & 0.70 & 4.1 & 0.70 & 0.0 & 0.70 & 0.6 & 4.1 \\
+Fixed $\rho=0.5$ & 0.50 & 0.0 & 0.50 & 1.9 & 0.50 & 0.0 & 1.9 \\
+Fixed $\rho=0.35\approx1/3$ (Breiman) & 0.35 & 1.0 & 0.35 & 12.5 & 0.35 & 6.0 & 12.5 \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,18 @@
+\begin{table*}[!t]
+\centering
+\caption{Point-localization performance on the original hybrid RTT--RSS benchmark (official RP-disjoint test sets). The paper-compatible metric is defined in Eq.~\eqref{eq:paper_metric}. 95\% CI: paired cluster bootstrap over test RPs (1000 replicates) of the F0.7$-$F1.0 difference in the paper-compatible metric; an interval excluding zero indicates a reliable improvement.}
+\label{tab:original_accuracy}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccccccc}
+\toprule
+ & \multicolumn{5}{c}{Paper-compatible metric (m)} & \multicolumn{2}{c}{2D RMSE (m)} & \multicolumn{2}{c}{$P_{90}$ (m)} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+Dataset & Published & F1.0 & F0.7 & Impr. (\%) & 95\% CI of diff. & F1.0 & F0.7 & F1.0 & F0.7 \\
+\midrule
+Building & 0.600 & 0.599 & \textbf{0.513} & 14.32 & [-0.109, -0.064] & 0.851 & \textbf{0.732} & 1.216 & \textbf{1.079} \\
+Office & 0.380 & 0.370 & \textbf{0.343} & 7.05 & [-0.048, -0.008] & 0.523 & \textbf{0.486} & 0.827 & \textbf{0.758} \\
+Apartment & 0.590 & 0.600 & \textbf{0.569} & 5.14 & [-0.107, +0.057] & 0.867 & \textbf{0.821} & \textbf{1.163} & 1.235 \\
+\bottomrule
+\end{tabular}
+\end{table*}

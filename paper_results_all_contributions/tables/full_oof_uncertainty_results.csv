@@ -1,0 +1,13 @@
+dataset,protocol,predictor,region,confidence,empirical_coverage,area_m2,q,final_train_rows,final_train_rps,note
+building,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,circle,0.9,0.9652515723270441,5.689072437273908,1.3456923868403203,57960,483,OOF empirical; not ordinary split-conformal guarantee
+building,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,ellipse,0.9,0.9653039832285115,5.323559542381188,1.8473808594994479,57960,483,OOF empirical; not ordinary split-conformal guarantee
+building,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,circle,0.95,0.9833333333333333,9.282438680820531,1.7189217550546039,57960,483,OOF empirical; not ordinary split-conformal guarantee
+building,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,ellipse,0.95,0.9889937106918238,8.656048820641711,2.3556742263209594,57960,483,OOF empirical; not ordinary split-conformal guarantee
+office,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,circle,0.9,0.9824074074074074,2.6588231723981766,0.9199617934397541,3360,28,OOF empirical; not ordinary split-conformal guarantee
+office,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,ellipse,0.9,0.9425925925925925,2.499113929334501,1.952862611418409,3360,28,OOF empirical; not ordinary split-conformal guarantee
+office,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,circle,0.95,0.9990740740740741,6.131520482582588,1.3970410111891651,3360,28,OOF empirical; not ordinary split-conformal guarantee
+office,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,ellipse,0.95,0.9990740740740741,5.438467405820098,2.8808253378186093,3360,28,OOF empirical; not ordinary split-conformal guarantee
+apartment,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,circle,0.9,0.9201149425287356,6.073823540886464,1.390452473118013,9720,81,OOF empirical; not ordinary split-conformal guarantee
+apartment,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,ellipse,0.9,0.9008620689655172,5.277781049904184,2.169749442626536,9720,81,OOF empirical; not ordinary split-conformal guarantee
+apartment,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,circle,0.95,0.9422413793103448,8.44789042602138,1.6398314059683088,9720,81,OOF empirical; not ordinary split-conformal guarantee
+apartment,full_train_grouped_oof_empirical,RF300-F0.7 trained on 100% TRAIN,ellipse,0.95,0.9350574712643678,7.486466968930408,2.5841775970476957,9720,81,OOF empirical; not ordinary split-conformal guarantee

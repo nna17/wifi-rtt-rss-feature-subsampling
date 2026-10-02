@@ -1,0 +1,106 @@
+\section{Experimental Setup}
+\label{sec:experimental_setup}
+
+The experiments address six questions: (1) whether the published full-feature hybrid RF can be reproduced; (2) whether $\rho=0.7$ improves on it under otherwise identical settings; (3) whether the improvement holds on an independent dataset and across acquisition days without retuning; (4) how the optimal ratio depends on radio-map density and how it can be chosen; (5) how the configuration compares with literature ensembles and how small the model can be made; and (6) whether conformal regions keep their coverage when calibration scans are clustered by RP. The protocols were fixed before the final tables and figures were generated.
+
+% ============================================================
+\subsection{Dataset I: Hybrid RTT--RSS Benchmark}
+\label{subsec:dataset_original}
+
+The first dataset is the public hybrid Wi-Fi RTT--RSS benchmark of Feng et al.~\cite{feng2026robust}, collected with an LG G8X ThinQ smartphone in a university building floor with mixed LOS/NLOS conditions, a LOS-dominated office, and an apartment with one AP in NLOS for most RPs (Table~\ref{tab:dataset_summary}). Missing measurements are encoded with the dataset's sentinels, $100000$~mm for RTT and $-200$~dBm for RSS; no imputation, normalization, or feature transformation is applied. Coordinates are given in grid units and converted to metres with the grid spacing $\Delta$ of each environment.
+
+\begin{table}[!t]
+	\centering
+	\caption{Hybrid RTT--RSS benchmark datasets. Sample counts correspond to the distributed files used in this study.}
+	\label{tab:dataset_summary}
+	\footnotesize
+	\setlength{\tabcolsep}{3.5pt}
+	\begin{tabular}{lccc}
+		\toprule
+		 & Building & Office & Apartment \\
+		\midrule
+		Area (m$^2$) & $92\times15$ & $5.5\times4.5$ & $7.7\times9.4$ \\
+		Grid spacing $\Delta$ (m) & 0.60 & 0.455 & 0.48 \\
+		APs ($p=2M$ features) & 13 (26) & 3 (6) & 4 (8) \\
+		Training / test RPs & 483 / 159 & 28 / 9 & 81 / 29 \\
+		Scans per RP & 120 & 120 & 120 \\
+		Training / test scans & 57,960 / 19,080 & 3,360 / 1,080 & 9,720 / 3,480 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+The official training and test files are RP-disjoint in all three environments: no test coordinate occurs in the training file. The official test therefore measures generalization to unseen locations at the full training density, and it is never used to choose $\rho$. The distributed Office files contain 3,360 training and 1,080 test scans, slightly different from the 3,240 and 1,200 stated in~\cite{feng2026robust}; all results use the distributed files.
+
+% ============================================================
+\subsection{Dataset II: EETAC Auditorium}
+\label{subsec:eetac_dataset}
+
+The EETAC dataset~\cite{martinescalona2023ftm}, also used in~\cite{gonzalezdiaz2026scalable}, was collected with a Google Pixel 3a in a $19.2\times8$~m$^2$ auditorium on a $5\times5$ RP grid (spacing 4.8~m by 2~m), with about 100 scans per RP on each of two acquisition days (2,500 scans per day). RTT and RSS files are aligned scan by scan through their metadata. The raw files expose several BSSIDs per physical AP; they are grouped into physical APs, with the RSS feature defined as the strongest and the RTT feature as the median of the available BSSID values. The missing-value code $-100$ is preserved. Two configurations are used: \emph{Medium}, four Google APs, and \emph{High}, the four Google APs plus the three Linksys/Belkin APs present on both days. The two-AP configuration of~\cite{gonzalezdiaz2026scalable} is not used, because the public files do not identify which Google APs form its opposite-corner pair.
+
+\subsection{EETAC Preprocessing and Frame Alignment}
+\label{subsec:preprocessing}
+
+The upper grid row is recorded as $y=8.1$~m on Day~1 and $y=8.0$~m on Day~2; coordinates within $0.25$~m of the canonical grid $x\in\{0,4.8,9.6,14.4,19.2\}$, $y\in\{0,2,4,6,8\}$ are snapped to it.
+
+More importantly, the two days are not recorded in the same coordinate frame. For each RP, we compared the median RTT fingerprint of the four Google APs on Day~1 with all Day~2 RP fingerprints. Under the identity mapping, the nearest Day~2 fingerprint lies at the same coordinates for only 4 of the 25 RPs, all in the central row $y=4$~m, which is invariant under a vertical mirror. Under $y\mapsto 8-y$, it lies at the mirrored coordinates for 22 of 25 RPs; the remaining three are near-ties with a neighboring row. Day~2 is therefore expressed in a frame mirrored about $y=4$~m. Without alignment, every pooled or cross-day experiment assigns one coordinate label to two physical locations. The pipeline detects the mapping from the data, applies $y\mapsto8-y$ to Day~2 before pooling, and writes the evidence to an audit file. Accuracy does not depend on which day's frame is used as reference.
+
+% ============================================================
+\subsection{Compared Models}
+\label{subsec:compared_models}
+
+The main comparison isolates the subspace ratio: RF300-F1.0 ($\rho=1$, the full-feature baseline) and RF300-F0.7 ($\rho=0.7$) share all other settings (Table~\ref{tab:rf_configuration}). The literature baselines are described in Section~\ref{subsec:extension_protocols}.
+
+\begin{table}[!t]
+	\centering
+	\caption{Random Forest configurations of the main comparison.}
+	\label{tab:rf_configuration}
+	\footnotesize
+	\begin{tabular}{lcc}
+		\toprule
+		Parameter & RF300-F1.0 & RF300-F0.7 \\
+		\midrule
+		Number of trees $T$ & 300 & 300 \\
+		Feature ratio $\rho$ & 1.0 & 0.7 \\
+		Maximum depth / min. leaf size & none / 1 & none / 1 \\
+		Bootstrap sampling & yes & yes \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+% ============================================================
+\subsection{Evaluation Protocols}
+\label{subsec:evaluation_protocols}
+
+\begin{itemize}
+	\item \textbf{Official test (Dataset I).} Both models are trained on the full official training file and evaluated on the official RP-disjoint test file; the published values $0.60$, $0.38$, and $0.59$~m~\cite{feng2026robust} are used only as reference.
+	\item \textbf{RP-grouped CV (Dataset I).} Five-fold \texttt{GroupKFold} on the training file with groups $g_i=(x_i,y_i)$; both models use identical folds.
+	\item \textbf{EETAC sample-level CV.} Five-fold CV on the pooled, frame-aligned days, stratified by RP so that every fold contains every RP; this measures recognition of surveyed locations.
+	\item \textbf{EETAC RP-grouped CV.} Five-fold CV holding out complete RPs of the $5\times5$ grid.
+	\item \textbf{Cross-day.} Training on all scans of one day and testing on all scans of the other, in both directions, without any target-day data.
+	\item \textbf{Training-data utilization.} RF300-F0.7 trained on the $75\%$ fitting subset of the calibration split versus all training RPs.
+	\item \textbf{Uncertainty.} On Dataset I, $25\%$ of the training RPs are reserved for calibration; circles and ellipses are calibrated with the scan-level and RP-count levels and with the full-training grouped-OOF variant, at $1-\alpha\in\{0.90,0.95\}$. The test set is used only after the regions have been fixed.
+\end{itemize}
+
+\textbf{Metrics and statistics.} Localization is reported with the metrics of Section~\ref{subsec:metrics}; the paper-compatible metric is used only for comparison with~\cite{feng2026robust}. Regions are reported by empirical coverage and area. Because scans of one RP are correlated, the official-test difference between the two models is assessed with a paired cluster bootstrap that resamples complete test RPs (1000 replicates). Computational cost is reported as training time, median prediction time over five repetitions, inference time per scan, and serialized (pickle) model size.
+
+% ============================================================
+\subsection{Extension Protocols}
+\label{subsec:extension_protocols}
+
+Six additional analyses use the same data, preprocessing, and implementation, including $m_{\mathrm{try}}=\max(1,\lfloor\rho p\rfloor)$. All metrics come from the official RP-disjoint tests or from five-fold RP-grouped CV with pooled out-of-fold predictions. The extension analyses use seeds 0--9 or 0--2 as stated below, whereas the main tables use seed 42; values of the same configuration can therefore differ slightly between the main and extension tables.
+
+\begin{enumerate}
+	\item \textbf{Robustness over seeds.} The comparison $\rho=0.7$ versus $\rho=1$ is repeated with ten seeds (0--9) on the official tests and on all eight EETAC comparisons; for EETAC, a paired RP-clustered bootstrap (1000 replicates) gives 95\% intervals of the 2D RMSE difference.
+	\item \textbf{Radio-map density.} The training map is thinned to $100\%$, $75\%$, $50\%$, and $25\%$ of its RPs by sampling complete RPs, and $\rho\in\{0.2,0.35,0.5,0.7,0.85,1.0\}$ is evaluated on the full official test set for Random Forests and extremely randomized trees, with the same ten random RP subsets for both.
+	\item \textbf{Ratio-selection rules.} For the same grid of $\rho$, the OOB error, five-fold sample-level CV error, and five-fold RP-grouped CV error on the training file are recorded together with the official test error (seed 0); the rules of Section~\ref{subsec:model_selection} are scored by their test regret.
+	\item \textbf{Literature baselines.} RF with $m_{\mathrm{try}}=\lfloor p/3\rfloor$~\cite{breiman2001random}, extremely randomized trees with all features~\cite{geurts2006extremely}, Rotation Forest~\cite{rodriguez2006rotation} (standardized features, disjoint random subsets of three features, PCA on a $75\%$ subsample per subset, 300 trees), gradient-boosted trees (500 iterations, learning rate 0.05), and distance-weighted KNN ($k=5$, standardized features), with three seeds for Office and Apartment and one seed for Building.
+	\item \textbf{Calibration with clustered scans.} The split-conformal circle of RF300-F0.7 is recomputed over 20 (Building: 10) random RP-level fit/calibration splits, comparing the scan-level, group, and RP-count rules of Section~\ref{subsec:strict_conformal} on the same splits and models.
+	\item \textbf{Compact forests.} $T\in\{50,100,300\}$, minimum leaf size $\{1,5,20\}$, maximum depth $\{\text{none},16\}$, and $\rho\in\{0.5,0.7,1.0\}$, trained on the full training file; serialized size and single-thread inference time are measured.
+\end{enumerate}
+
+An EETAC ratio sweep repeats the sample-level, RP-grouped, and cross-day protocols for the same grid with three seeds. Additional screening experiments are reported in the supplementary material.
+
+\subsection{Implementation Details}
+\label{subsec:implementation_details}
+
+All experiments were implemented in Python 3.14 with scikit-learn 1.9.1, NumPy 2.4.4, SciPy 1.17.1, and joblib 1.6.0. Random Forests use \texttt{RandomForest}\allowbreak\texttt{Regressor}. The random seed is $42$ in the main pipeline and $0$--$9$ or $0$--$2$ in the extension analyses. Training uses all 20 threads of an Intel Core i5-13500HX laptop CPU with 16~GB of RAM; no GPU is used. A single orchestration script reproduces all tables and figures of the main comparison from the public data, and separate scripts reproduce the extension analyses and the EETAC frame audit.

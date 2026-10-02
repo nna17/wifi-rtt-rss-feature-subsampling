@@ -1,0 +1,107 @@
+\begin{algorithm}[t]
+	\caption{RP-Grouped Covariance-Aware Uncertainty Estimation}
+	\label{alg:uncertainty}
+	\begin{algorithmic}[1]
+		
+		\Require
+		Training dataset
+		$\mathcal{D}=\{(\mathbf{z}_i,\mathbf{u}_i,g_i)\}_{i=1}^{N}$;
+		number of folds $K$;
+		confidence level $1-\alpha$;
+		fixed RF parameters $T=300$ and $\rho=0.7$
+		
+		\Ensure
+		Residual covariance $\boldsymbol{\Sigma}$;
+		circular threshold $q_{\mathrm{circ}}$;
+		elliptical threshold $q_{\mathrm{ell}}$
+		
+		\State Partition physical RPs into $K$ disjoint groups
+		
+		\For{$k=1$ to $K$}
+		
+		\State Train the fold model without RP group $k$:
+		\[
+		f^{(-k)}
+		\leftarrow
+		\mathrm{RF}
+		\left(
+		\mathcal{D}^{(-k)};
+		300,
+		0.7
+		\right)
+		\]
+		
+		\For{each sample $i$ in held-out RP fold $k$}
+		
+		\State Compute out-of-fold prediction:
+		\[
+		\hat{\mathbf{u}}_i^{\mathrm{OOF}}
+		=
+		f^{(-k)}(\mathbf{z}_i)
+		\]
+		
+		\State Compute residual:
+		\[
+		\boldsymbol{\epsilon}_i
+		=
+		\mathbf{u}_i
+		-
+		\hat{\mathbf{u}}_i^{\mathrm{OOF}}
+		\]
+		
+		\EndFor
+		
+		\EndFor
+		
+		\State Estimate residual covariance:
+		\[
+		\boldsymbol{\Sigma}
+		=
+		\mathrm{Cov}
+		\left(
+		\{\boldsymbol{\epsilon}_i\}
+		\right)
+		+
+		\lambda\mathbf{I}
+		\]
+		
+		\For{each residual $\boldsymbol{\epsilon}_i$}
+		
+		\State Circular score:
+		\[
+		s_i^{\mathrm{circ}}
+		=
+		\|\boldsymbol{\epsilon}_i\|_2
+		\]
+		
+		\State Elliptical score:
+		\[
+		s_i^{\mathrm{ell}}
+		=
+		\sqrt{
+			\boldsymbol{\epsilon}_i^{T}
+			\boldsymbol{\Sigma}^{-1}
+			\boldsymbol{\epsilon}_i
+		}
+		\]
+		
+		\EndFor
+		
+		\State Compute uncertainty thresholds with the finite-sample level of Eq.~\eqref{eq:conformal_quantile}, $n=N$:
+		\[
+		q_{\mathrm{circ}}
+		=
+		s^{\mathrm{circ}}_{\left(\lceil (N+1)(1-\alpha)\rceil\right)},
+		\qquad
+		q_{\mathrm{ell}}
+		=
+		s^{\mathrm{ell}}_{\left(\lceil (N+1)(1-\alpha)\rceil\right)}
+		\]
+		
+		\State \Return
+		$\boldsymbol{\Sigma}$,
+		$q_{\mathrm{circ}}$,
+		$q_{\mathrm{ell}}$
+		
+	\end{algorithmic}
+\end{algorithm}

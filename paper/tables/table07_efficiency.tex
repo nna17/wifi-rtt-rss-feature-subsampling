@@ -1,0 +1,20 @@
+\begin{table*}[!t]
+\centering
+\caption{Accuracy and computational measurements of the 300-tree models (20 threads). The error is the paper-compatible metric for the original benchmark and the 2D RMSE for EETAC (sample-level CV); per-sample inference time and model size were not recorded for EETAC. Compact forests are analyzed in Table~\ref{tab:compact_models}.}
+\label{tab:efficiency}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lcccccccccc}
+\toprule
+ & \multicolumn{2}{c}{Error (m)} & \multicolumn{2}{c}{Train time (s)} & \multicolumn{2}{c}{Prediction time (s)} & \multicolumn{2}{c}{Inference ($\mu$s/sample)} & \multicolumn{2}{c}{Model size (MB)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+Dataset & F1.0 & F0.7 & F1.0 & F0.7 & F1.0 & F0.7 & F1.0 & F0.7 & F1.0 & F0.7 \\
+\midrule
+Building & 0.599 & \textbf{0.513} & 13.63 & 6.35 & 0.247 & 0.177 & 12.93 & 9.29 & 58.88 & 64.26 \\
+Office & 0.370 & \textbf{0.343} & 0.56 & 0.40 & 0.073 & 0.073 & 67.62 & 67.21 & 2.86 & 3.41 \\
+Apartment & 0.600 & \textbf{0.569} & 0.80 & 0.74 & 0.109 & 0.133 & 31.30 & 38.30 & 13.32 & 14.85 \\
+EETAC Medium (4 APs) & 0.331 & \textbf{0.292} & 0.56 & 0.49 & 0.080 & 0.073 & -- & -- & -- & -- \\
+EETAC High (7 APs) & 0.329 & \textbf{0.292} & 0.61 & 0.52 & 0.077 & 0.072 & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}

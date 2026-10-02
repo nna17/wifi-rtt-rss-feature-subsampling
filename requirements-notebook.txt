@@ -1,0 +1,3 @@
+# Extra packages to run reproduce.ipynb (in addition to requirements.txt).
+notebook
+ipykernel

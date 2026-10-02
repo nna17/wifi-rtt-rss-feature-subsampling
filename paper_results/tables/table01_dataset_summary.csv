@@ -1,0 +1,6 @@
+Dataset,Environment,Grid spacing (m),Train samples,Test samples,Train RPs,Test RPs,APs,Features
+Building,92 x 15 m^2,0.6,57960,19080.0,483,159.0,13.0,26.0
+Office,5.5 x 4.5 m^2,0.455,3360,1080.0,28,9.0,3.0,6.0
+Apartment,7.7 x 9.4 m^2,0.48,9720,3480.0,81,29.0,4.0,8.0
+EETAC Day 1,19.2 x 8 m^2 auditorium,,2500,,25,,,
+EETAC Day 2,19.2 x 8 m^2 auditorium,,2500,,25,,,

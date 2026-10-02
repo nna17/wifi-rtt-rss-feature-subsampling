@@ -1,0 +1,22 @@
+[14:58:50] 3 building multilateration alone: {'paper_metric_m': 1.5421056542438456, 'rmse2d_m': 2.3123407064801005, 'p90_m': 3.8762350092510687}
+[14:59:43] 3/4 building s0 base F1.0 test=0.6047 cv=0.8869 cv2d=1.2546
+[15:00:26] 3/4 building s0 base F0.7 test=0.5258 cv=0.7074 cv2d=1.0041
+[15:02:23] 3/4 building s0 geo F1.0 test=0.5754 cv=0.8361 cv2d=1.1835
+[15:04:18] 3/4 building s0 geo F0.7 test=0.5103 cv=0.7130 cv2d=1.0097
+[15:08:08] 3/4 building s0 geo+diff F1.0 test=0.5646 cv=0.8107 cv2d=1.1511
+[15:11:03] 3/4 building s0 geo+diff F0.7 test=0.5185 cv=0.7035 cv2d=0.9978
+[15:18:34] 3/4 building s0 residual F1.0 test=0.6251 cv=0.7900 cv2d=1.1213
+[15:21:37] 3/4 building s0 residual F0.7 test=0.5768 cv=0.7199 cv2d=1.0192
+[15:22:02] 5 building s0 done
+[15:22:39] 1 building frac=1.0 rep=0 done
+[15:23:04] 1 building frac=0.75 rep=0 done
+[15:23:35] 1 building frac=0.75 rep=1 done
+[15:23:52] 1 building frac=0.5 rep=0 done
+[15:24:07] 1 building frac=0.5 rep=1 done
+[15:24:15] 1 building frac=0.25 rep=0 done
+[15:24:23] 1 building frac=0.25 rep=1 done
+[15:24:56] 2 building s0 RF-node-F0.7 test=0.5258 cv=0.7074
+[15:27:52] 2 building s0 tree-feature-0.7 test=0.5397 cv=0.7207
+[15:31:34] 2 building s0 tree-AP-0.7 test=0.5523 cv=0.7307
+[15:34:21] 2 building s0 tree-AP-0.5 test=0.6205 cv=0.7427
+[15:34:21] done

@@ -1,0 +1,90 @@
+\section{Discussion}
+\label{sec:discussion}
+
+The results show a consistent improvement of feature subsampling over the full-feature forest used in prior hybrid RTT--RSS work, but also that the size of this improvement, and the best subsampling ratio, depend on the evaluation protocol through one common factor: the density of the training radio map. This section interprets these findings and their implications for fingerprinting practice.
+
+% ============================================================
+\subsection{Why Feature Subsampling Helps, and Why It Helps More on Sparse Maps}
+\label{subsec:discussion_subspace}
+
+RF300-F0.7 differs from RF300-F1.0 only in the number of candidate features per split. With $\rho=1$, the forest is bagging: every tree sees the same features at every split and differs only through its bootstrap sample. Hybrid fingerprints are a favorable setting for decorrelation, because the RTT and RSS of one AP and the measurements of neighboring APs carry overlapping position information, and because the usefulness of an AP changes across space with LOS/NLOS conditions and visibility. Without subsampling, the same few dominant features drive most splits of most trees, so the trees make correlated errors at locations where those features are unreliable.
+
+The density experiment adds a second, more specific explanation. Per-split randomization reduces the effective degrees of freedom of a forest and is most useful when the signal-to-noise ratio is low~\cite{mentch2020randomization}. In fingerprinting, the test scans lie between surveyed RPs; the sparser the radio map, the farther the nearest training RP and the noisier the interpolation problem. Consistently, the best ratio decreases in all three environments as RPs are removed from the training map, and the gain over bagging tends to increase (Fig.~\ref{fig:density_ratio}), and the more strongly randomized literature ensembles lead under grouped CV but not on the full-density test (Table~\ref{tab:literature_baselines}). The same mechanism explains why the relative gain of RF300-F0.7 is larger under RP-grouped CV than on the official test. It also explains a boundary of the effect: extremely randomized trees, which already draw random split thresholds, are strongly regularized without feature subsampling and gain at most $0.8\%$ from it at any density (Table~\ref{tab:density_rf_et}). The density dependence is therefore a property of Random Forests, whose only sources of randomness are the bootstrap and the feature subset.
+
+Differences between environments fit the same picture. The Building environment benefits most at full density. It has the most APs ($p=26$), mixed LOS/NLOS conditions, and the largest area, which provides more redundant and locally unreliable features for subsampling to decorrelate. Office ($p=6$) and Apartment ($p=8$) offer few features, so a ratio of $0.7$ removes only two or three candidates per split.
+
+% ============================================================
+\subsection{Choosing the Ratio: A Fixed Default Beats Validation-Based Selection}
+\label{subsec:discussion_selection}
+
+A practitioner would normally tune $m_{\mathrm{try}}$ with out-of-bag error or cross-validation~\cite{probst2019hyperparameters}. In fingerprinting, both shortcuts are misleading. OOB and sample-level CV errors are an order of magnitude below the test error because each scan is evaluated by trees that have seen other scans of the same RP; they measure recognition, not localization. RP-grouped CV is unbiased with respect to leakage but evaluates models trained on a sparser map than the deployed model, and the density effect then pushes it toward ratios that are too small; in Office, it selects $\rho=0.2$ and incurs a $22.5\%$ test regret. A fixed default in the flat region of the full-density curves, $0.5$--$0.7$, is more reliable: $\rho=0.7$ has a worst-case regret of $4.1\%$ against $19.7\%$ for bagging.
+
+Two practical rules follow. For a fully surveyed radio map, a ratio between $0.5$ and $0.7$ is a safe default. For a sparse map, or when RPs are reserved for validation or calibration, a smaller ratio around $0.35$ is preferable. A validation-based choice should account for the density difference between validation and deployment models, for instance by tuning at matched density.
+
+We emphasize that $\rho=0.7$ was not selected by these analyses: it was fixed during development and frozen before the external evaluation, and the analyses quantify how far it is from the best ratio in hindsight. Choosing $0.5$ now, because it has a slightly lower regret on these test sets, would amount to tuning on the test data.
+
+% ============================================================
+\subsection{External and Cross-Day Validation}
+\label{subsec:discussion_external}
+
+A fixed default is only useful if it transfers. The EETAC experiments are external in three respects: a different building, smartphone, and AP deployment. After frame alignment, RF300-F0.7 reduces the sample-level and RP-grouped 2D RMSE by 11--14\%, with bootstrap intervals that exclude zero, and is better in 74 of 80 seed--protocol comparisons. EETAC's 25-RP grid is a sparse radio map, and its within-day protocols indeed prefer ratios of $0.35$--$0.5$, which again matches the density effect, while $\rho=0.7$ still improves on $\rho=1$ everywhere.
+
+The cross-day results change substantially once the acquisition-day frames are aligned: errors drop from more than $5$~m to $1.2$--$1.7$~m. Temporal shift remains real, since cross-day errors are about four times the within-day sample-level errors, but it is far smaller than the misaligned data suggest. Under this shift, RF300-F0.7 gives its largest relative gains ($13$--$20\%$ for Day~2$\rightarrow$Day~1 over ten seeds), which is consistent with decorrelated trees being less dependent on individual APs whose measurements drift between days. The effect is not uniform, however: in the seven-AP scenario, Day~1$\rightarrow$Day~2 is a tie. The seven-AP sweep also shows the limit of this argument: at $\rho=0.2$, trees are forced to rely on unstable Linksys APs, and cross-day error rises to $3.2$~m.
+
+The frame mismatch is itself a methodological lesson. Pooled or cross-day experiments implicitly assume that coordinates mean the same thing in every file. A simple fingerprint-consistency check, such as matching per-RP median RTT fingerprints across acquisition days, is cheap and detects such errors before they are interpreted as radio-map drift.
+
+% ============================================================
+\subsection{Mean Accuracy and Tail Robustness}
+\label{subsec:discussion_tail}
+
+The average improvements discussed above do not tell the whole story, because an improvement in RMSE does not guarantee an improvement throughout the error distribution. In the Apartment official test, RF300-F0.7 lowers the RMSE in all ten seeds but raises $P_{90}$ in all ten, and the bootstrap interval of the single-seed improvement includes zero. On EETAC under sample-level CV, the full-feature forest returns the exact grid coordinates for most scans of already-surveyed RPs, which gives it a lower $P_{90}$; RF300-F0.7 trades this exact recognition for fewer large errors, which lowers the RMSE. Applications that only need to identify a surveyed RP and those that need continuous positions therefore favor different trade-offs. Reporting RMSE, mean error, and several percentiles together, as done here, makes these differences visible.
+
+% ============================================================
+\subsection{Environment-Dependent Importance of RTT and RSS}
+\label{subsec:discussion_modalities}
+
+The way subsampling helps also depends on the two modalities. The feature importances show that RTT dominates in Building and Apartment, whereas RTT and RSS contribute more evenly in Office. Hybrid positioning should therefore not be seen as a fixed weighting of the two modalities. Subsampling lets different trees rely on different modalities and APs, so the ensemble can represent several complementary RTT--RSS relationships without an explicit weighting rule. In a screening experiment, drawing one feature subset per tree (Ho's random subspace method~\cite{ho1998random}) instead of per split was worse in all three environments (e.g., Apartment test error $0.645$~m versus $0.564$~m), and drawing whole APs, i.e., keeping each AP's RTT and RSS together, did not change this ($0.648$~m). The benefit therefore comes from per-split randomization rather than from a particular grouping of the modalities.
+
+% ============================================================
+\subsection{Efficiency and Model Size}
+\label{subsec:discussion_efficiency}
+
+At equal tree count, subsampling does not consistently change training or inference time, and it slightly increases model size because the trees grow deeper. The efficiency argument therefore rests on a different observation: the accuracy gained by subsampling can be spent on a smaller forest. A 50--100-tree subsampled forest remains more accurate than the 300-tree full-feature forest while being $2.5$--$5.5$ times smaller, trains in about one second on Building, and infers in a few microseconds per scan on one CPU thread.
+
+This should not be confused with state-of-the-art accuracy. GTCN~\cite{rana2025gtcn} reports a lower 2D RMSE on the Building environment ($0.660$~m versus $0.732$~m) with a much smaller parameter count. Its reported training time, about 38~min for 1500 epochs, compares with 6--15~s for the 300-tree subsampled forest and about 1~s for the 50-tree forest on our laptop CPU, i.e., two to three orders of magnitude less. Because the two timings come from different hardware and implementations, this ratio indicates an order of magnitude rather than a precise speed-up. The subsampled forest therefore occupies a different point of the design space: no GPU, no iterative training or learning-rate schedule, retraining in seconds after a radio-map update, and an accuracy about $11\%$ below that of the graph--temporal network. Which point is preferable depends on how often the model must be retrained and on the hardware available for training.
+
+% ============================================================
+\subsection{Relationship to Recent Low-Complexity RTT Localization}
+\label{subsec:discussion_recent_methods}
+
+Gonzalez Diaz et al.~\cite{gonzalezdiaz2026scalable} optimize RTT positioning for IoT scalability by limiting which APs are ranged and by lightweight proximity-based processing. The present work addresses a complementary question: how a hybrid RTT--RSS regressor should be configured and evaluated once the measurements are available. Because the two studies differ in datasets, AP subsets, error definitions, and protocols, we do not compare their numbers directly; the EETAC experiments here demonstrate transferability of the RF configuration rather than superiority over that framework.
+
+% ============================================================
+\subsection{Uncertainty Regions and Calibration with Clustered Scans}
+\label{subsec:discussion_uncertainty}
+
+The covariance-aware ellipse is consistently smaller than the circle because it adapts to the anisotropy of the residuals, which in indoor environments follows corridor orientation, AP geometry, and walls. Its coverage, however, is not better than that of the circle, so its benefit is a more compact description of the error rather than improved calibration.
+
+The more consequential finding concerns calibration itself. The finite-sample guarantee of split conformal prediction holds for exchangeable calibration and test units. In a fingerprinting dataset, the units are RPs, each represented by $\sim$120 nearly identical scans. Treating scans as independent inflates the apparent calibration sample size by two orders of magnitude, so the scan-level threshold is effectively an estimate from $G$ RPs without the corresponding finite-sample margin. With $G=121$ (Building) this is harmless. With $G=21$ (Apartment), the scan-level rule falls below the nominal coverage on average, which is a failure of validity rather than of a single unlucky split. Group calibration with one scan per RP~\cite{Dunn02102023} restores the nominal mean coverage at a moderate cost in area ($22$--$30\%$), whereas the RP-count heuristic is conservative and, when $G<2/\alpha-1$, degenerates to the largest pooled score. With $G=7$ (Office), no valid finite circle exists at the $90\%$ and $95\%$ levels. In practice, the number of calibration RPs, not the number of calibration scans, should be planned: a valid construction needs at least 9 calibration RPs for $90\%$ and 19 for $95\%$, and more RPs shrink the region toward the scan-level one. This requirement conflicts with the cost of withholding RPs from the point predictor, which the density effect explains ($12$--$14\%$ higher error with $75\%$ of the RPs), and motivates cross-fitted methods such as group-aware jackknife+ or CV+~\cite{barber2021jackknife,Dunn02102023}.
+
+The full-training grouped-OOF variant uses all RPs for the point predictor and produces smaller regions with good empirical coverage here, but it does not inherit the split-conformal guarantee because its scores come from several fold models.
+
+% ============================================================
+\subsection{Practical Implications}
+\label{subsec:discussion_practical}
+
+Taken together, the findings translate into five recommendations for tree-based RTT--RSS fingerprinting:
+
+\begin{enumerate}
+	\item Prefer per-split feature subsampling to full-feature forests for hybrid RTT--RSS fingerprinting: it generally improves average localization accuracy at negligible tuning cost, although the benefit is not universal across tail metrics and temporal conditions.
+	\item Use a ratio of about $0.5$--$0.7$ for densely surveyed maps and a smaller one for sparse maps; do not tune it with OOB or sample-level CV.
+	\item Evaluate on complete held-out RPs and report sample-level results separately; verify coordinate consistency across acquisition sessions before pooling them.
+	\item Report mean and tail metrics with RP-clustered confidence intervals, since a few test RPs can dominate the comparison.
+	\item Calibrate conformal regions at the RP level, e.g., with one score per calibration RP, and reserve at least $1/\alpha-1$ RPs for the desired confidence level.
+\end{enumerate}
+
+% ============================================================
+\subsection{Overall Interpretation}
+\label{subsec:discussion_overall}
+
+The contribution of this work is not a new learning paradigm. Random feature subsampling is a well-established principle. What this study adds is a characterization of this one design variable for hybrid RTT--RSS fingerprinting: its effect relative to current practice, its dependence on radio-map density, how it should and should not be chosen, how it transfers to an independent dataset and across days, and how it interacts with model size and with calibration. The evidence comes from the consistency of the effect across three benchmark environments, four survey densities, two AP configurations of an external dataset, cross-day transfer, ten seeds, and several literature baselines, and from the identified boundaries: no universal improvement of tail metrics, a non-significant single-seed official-test gain in the smallest test set, a cross-day tie in one direction, environment-dependent best ratios, and calibration that requires enough reference points.

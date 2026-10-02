@@ -1,0 +1,8 @@
+physical_ap,vendor_group,inferred_x_m,inferred_y_m,best_rp_mean_rss_dbm
+G1,Google,19.2,0.0,-51.21
+G2,Google,0.0,0.0,-53.875
+G3,Google,0.0,8.0,-44.335
+G4,Google,19.2,8.0,-39.83
+L1,Linksys,0.0,4.0,-43.83
+L2,Linksys,9.6,0.0,-44.415
+L3,Linksys,9.6,0.0,-45.33

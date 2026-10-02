@@ -1,0 +1,194 @@
+\section{Related Work}
+\label{sec:related_work}
+
+Wi-Fi indoor positioning has evolved from received-signal-strength (RSS) fingerprint matching to ranging-based Wi-Fi Fine Timing Measurement (FTM), hybrid RTT--RSS fusion, and, more recently, learning-based and uncertainty-aware localization. While positioning accuracy has progressively improved, this improvement has often been accompanied by increased model complexity, denser access-point deployments, higher FTM signaling overhead, or greater offline calibration effort. Consequently, recent research increasingly considers not only localization error but also computational cost, scalability, and robustness. This section reviews these developments with particular emphasis on the trade-off between positioning accuracy and implementation complexity.
+
+Table~\ref{tab:related_work_comparison} summarizes representative methods. The numerical results are reported using the metrics and experimental protocols adopted by the respective studies and therefore should not be interpreted as a direct cross-paper ranking.
+
+\begin{table*}[!t]
+	\centering
+	\caption{Representative Wi-Fi indoor-localization methods and their reported accuracy and computational or deployment cost. Results originate from different datasets, metrics, AP configurations, and hardware platforms and are therefore not directly comparable as an accuracy ranking.}
+	\label{tab:related_work_comparison}
+	\footnotesize
+	\setlength{\tabcolsep}{2.5pt}
+	\renewcommand{\arraystretch}{1.15}
+	\begin{tabular}{>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}p{1.9cm}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{3.1cm}}
+		\toprule
+		\textbf{Study} &
+		\textbf{Signals} &
+		\textbf{Method} &
+		\textbf{Reported result} &
+		\textbf{Computation / deployment cost} &
+		\textbf{Main limitation / relevance} \\
+		\midrule
+		
+		RADAR~\cite{bahl2000radar} &
+		RSS &
+		Radio-map fingerprinting + NN &
+		Median error $\approx2$--$3$ m &
+		Very simple NN inference; manual radio-map survey &
+		Seminal fingerprinting; limited precision and calibration burden \\
+		
+		Guo et al.~\cite{guo2019hybrid} &
+		RTT+RSS &
+		Calibrated ranging + adaptive fusion/filtering &
+		Mean error $1.435$ m &
+		$\approx0.19$ s location-update interval &
+		Model-based fusion; affected by ranging/NLOS errors \\
+		
+		WiNar~\cite{hashem2021winar} &
+		RTT+RSS &
+		Deterministic hybrid fingerprint matching &
+		Mean error $0.73/0.77$ m &
+		No DNN training; exact online time not reported &
+		Sub-meter with simple matching but requires fingerprint map \\
+		
+		RRLoc~\cite{rizk2022rrloc} &
+		RTT+RSS &
+		DCCA + deep position regression &
+		Mean $0.51/0.59$ m; median $0.32/0.42$ m &
+		Deep inference evaluated with CPU+GPU; slower than deterministic WiNar &
+		High accuracy with greater learned-model complexity \\
+		
+		Dong et al.~\cite{dong2022nlos} &
+		RTT+RSS &
+		ML-based LOS/NLOS detection &
+		$>96\%$ LOS/NLOS accuracy &
+		10 samples; $\approx1$ s minimum observation latency &
+		Auxiliary classifier rather than direct position estimator \\
+		
+		Rana et al.~\cite{rana2023calibrated} &
+		RTT &
+		Calibrated RTT + DNN/RF-based fingerprinting &
+		$\approx0.44$ m RMSE reported for a 3-AP setting &
+		Learned multistage processing; exact timing not reported &
+		Strong accuracy but higher model complexity \\
+		
+		Gonzalez Diaz et al.~\cite{gonzalezdiaz2024stdclustering} &
+		RTT+RSS/\allowbreak STD &
+		K-means clustering + feature selection + FP &
+		$\approx0.59$ m RMSE &
+		K-means + Extra-Trees multistage pipeline &
+		Improves scalability but adds computational stages \\
+		
+		Cao et al.~\cite{cao2024los} &
+		RTT+RSS &
+		SVM LOS/NLOS + LS compensation + Bayesian selection &
+		MAE $1.082$ m &
+		Designed for real-time/lightweight processing; exact latency not reported &
+		Additional propagation-state processing required \\
+		
+		WhereArtThou~\cite{jurdi2024whereartthou} &
+		RTT+IMU &
+		EKF-RW / EKF step-heading &
+		P90 RTT-only error $\approx1.65$ m &
+		Computationally efficient recursive filtering &
+		Depends on ranging and optional inertial information \\
+		
+		GTCN~\cite{rana2025gtcn} &
+		RTT+RSS &
+		Graph + temporal convolution network &
+		Building 2D RMSE $0.660$ m &
+		93,934 parameters; 67.01 MFLOPs; $0.0211$ ms/scan; $\approx38$ min training &
+		High accuracy with more complex representation learning \\
+		
+		Feng et al.~\cite{feng2026robust} &
+		RTT+RSS &
+		RF + conformal prediction &
+		$0.60/0.59/0.38$ m (Building/Apartment/Office, paper metric); Building 2D RMSE $0.851$ m in our reproduction &
+		Building RF training $\approx1.6$ s; CP quantile $\approx0.2$ s &
+		Lightweight and uncertainty-aware; full-feature (bagged) RF; scan-level calibration \\
+		
+		Gonzalez Diaz et al.~\cite{gonzalezdiaz2026scalable} &
+		RTT+RSS &
+		Proximity ranking + KNN fingerprinting &
+		RMSE $<0.50$ m in high-density setting &
+		Clustering $\mathcal{O}(MS)$; streaming buffer $\mathcal{O}(1)$; up to $\sim98\%$ memory reduction &
+		Optimizes IoT scalability/AP usage rather than RF regression \\
+		
+		Martin-Escalona and Zola~\cite{martinescalona2026surveyfree} &
+		RTT &
+		Physics-informed GPR radio-map reconstruction &
+		Sub-meter in favorable geometry; $\sim2$ m under asymmetric extrapolation &
+		Offline GPR reconstruction; greatly reduced physical survey requirement &
+		Targets calibration cost rather than predictor complexity \\
+		
+		\bottomrule
+	\end{tabular}
+\end{table*}
+
+% ============================================================
+\subsection{From RSS Fingerprinting to Wi-Fi RTT Positioning}
+\label{subsec:rw_rss_rtt}
+
+Wi-Fi fingerprinting originated primarily from RSS measurements. The seminal RADAR system of Bahl and Padmanabhan~\cite{bahl2000radar} constructed an empirical radio map and estimated an unknown location through nearest-neighbor matching. RADAR demonstrated a median localization error of approximately 2--3~m, establishing the feasibility of infrastructure-reusing Wi-Fi fingerprinting. Its online estimator was computationally simple, but the approach required manual radio-map construction and remained sensitive to environmental changes. Subsequent surveys have identified radio-map collection, temporal signal variation, device heterogeneity, and calibration effort as persistent limitations of RSS fingerprinting~\cite{he2016wifiFingerprint}.
+
+The introduction of FTM in IEEE 802.11mc enabled Wi-Fi Round-Trip Time (RTT) measurements to provide explicit ranging information. Unlike RSS, which indirectly relates signal attenuation to distance, RTT estimates propagation distance from signal timing. RTT therefore offers substantially better ranging stability in favorable line-of-sight (LOS) conditions, although multipath and NLOS propagation can introduce considerable positive ranging biases.
+
+Ma et al.~\cite{ma2022rtt} systematically characterized commodity Wi-Fi RTT measurements and proposed bias correction followed by clustering-based trilateration and weighted concentric-circle processing. Such ranging-based methods avoid dense fingerprint matching, but their accuracy strongly depends on ranging quality and AP geometry.
+
+To improve the reliability of RTT under difficult propagation conditions, several works explicitly detect or compensate for NLOS measurements. Dong et al.~\cite{dong2022nlos} used RTT and RSS features for real-time LOS/NLOS classification, achieving more than 96\% discrimination accuracy with 10 measurements and approximately 1~s minimum observation latency. Feng et al.~\cite{feng2022los} subsequently proposed feature selection for RTT--RSS LOS identification, reporting 93\% overall classification accuracy across 13 APs while using only 34 of 130 candidate features. Cao et al.~\cite{cao2024los} combined SVM-based LOS/NLOS classification, least-squares LOS calibration, and Bayesian trusted-NLOS selection, obtaining a mean absolute positioning error of 1.082~m. Although these approaches improve RTT robustness, they introduce additional preprocessing, classification, or calibration stages before localization.
+
+% ============================================================
+\subsection{Hybrid RTT--RSS Fusion and Fingerprinting}
+\label{subsec:rw_hybrid}
+
+Because RTT and RSS exhibit complementary error characteristics, several studies have investigated their joint use. Guo et al.~\cite{guo2019hybrid} combined calibrated RTT ranging with RSS-based ranging and filtering, reporting an average positioning error of 1.435~m with a location update interval of approximately 0.19~s. This demonstrated that model-based RTT--RSS fusion can improve robustness without requiring a deep-learning architecture.
+
+Hashem et al. introduced WiNar~\cite{hashem2021winar}, which combines RTT and RSS in a fingerprinting framework and performs deterministic similarity-based localization. WiNar achieved average errors of 0.73~m and 0.77~m in two real-world testbeds. Its deterministic matching procedure avoids neural-network inference, but it retains the offline cost associated with fingerprint-map construction.
+
+Martin-Escalona and Zola~\cite{martinescalona2023ftm} further investigated the use of multiple FTM/RTT observables within fingerprinting, while Gonzalez Diaz et al.~\cite{gonzalezdiaz2023coupling} studied coupling RTT and RSSI measurements to reduce the number of active RTT measurements required for localization. The latter direction is particularly relevant to IoT deployments because each active RTT request consumes wireless-medium resources.
+
+Dong et al.~\cite{dong2023rtt_rss} instead followed a model-based fusion strategy, combining a calibrated RTT model, an improved RSS propagation model, adaptive RTT--RSS weighting, and trilateration. The study demonstrated that explicit fusion of the two observables improves ranging-based positioning under multipath conditions, although the pipeline requires several sequential calibration and fusion operations.
+
+% ============================================================
+\subsection{Learning-Based RTT--RSS Localization}
+\label{subsec:rw_learning}
+
+More recent systems replace manually designed fusion rules with learned representations. Eberechukwu et al.~\cite{eberechukwu2023fusion} proposed a DNN that directly learns from raw FTM and RSSI measurements in real indoor environments. This removes the need to manually define the relationship between the two modalities, but introduces neural-network training and inference costs.
+
+RRLoc, proposed by Rizk et al.~\cite{rizk2022rrloc}, represents a more sophisticated hybrid-learning approach. The method employs deep canonical correlation analysis to project RTT and RSS into a correlated latent representation, followed by a neural position estimator. RRLoc achieved mean localization errors of 0.51~m and 0.59~m in its Office and Lab environments, with corresponding median errors of 0.32~m and 0.42~m. These results demonstrate the accuracy achievable through learned multimodal fusion. However, the architecture requires multiple learned components, and its authors report longer inference processing than deterministic WiNar and multilateration approaches.
+
+Rana et al.~\cite{rana2023calibrated} combined calibrated Wi-Fi RTT with learning-based fingerprinting using DNN and Random-Forest-related processing. The method was subsequently reported to achieve approximately 0.44~m RMSE using RTT measurements from three APs. This further illustrates the ability of learned RTT fingerprints to reach sub-meter precision, although the computational burden is higher than that of simple proximity or deterministic matching approaches.
+
+The recent Graph Temporal Convolution Network (GTCN) of Rana and Dulal~\cite{rana2025gtcn} introduces substantially richer spatial and temporal modeling. AP relationships are represented through graph convolutions, while dilated temporal convolutions capture measurement dynamics. On the large Building environment, the proposed hybrid RSS+RTT GTCN reduces 2D RMSE to 0.660~m. The same architecture uses 93,934 trainable parameters and approximately 67.01~MFLOPs for the Building configuration. The authors report approximately 0.0211~ms CPU inference time per scan and about 38~min of training for 1500 epochs. Thus, GTCN demonstrates that sophisticated representation learning can provide high accuracy while retaining real-time inference, but at a substantially more complex training and model-construction stage than a conventional tree ensemble.
+
+% ============================================================
+\subsection{Scalability, Filtering, and Survey Reduction}
+\label{subsec:rw_scalable}
+
+Accuracy alone is insufficient for practical Wi-Fi RTT positioning because FTM exchanges consume wireless-medium resources, which becomes problematic when many devices request ranging simultaneously; increasing the FTM burst size improves measurement quality but increases this occupancy~\cite{zola2025burst}. Gonzalez Diaz et al.~\cite{gonzalezdiaz2024stdclustering} assign different AP subsets to spatial clusters, using K-means clustering and Extra-Trees-based feature selection, which reduces unnecessary FTM requests while keeping an RMSE of about 0.59~m, at the cost of a multistage learning pipeline. Their subsequent framework~\cite{gonzalezdiaz2026scalable} replaces these stages by RSSI-based proximity ranking, with $\mathcal{O}(MS)$ clustering and an $\mathcal{O}(1)$ streaming buffer, and reports RMSE below 0.5~m, memory reductions approaching 98\%, and up to 124 simultaneously positioned users in high-density configurations.
+
+Other systems do not rely on fingerprint regression or target a different cost. WhereArtThou~\cite{jurdi2024whereartthou} tracks users with extended Kalman filtering of RTT ranges, reaching a 90th-percentile error of about 1.65~m without inertial data; its accuracy depends on ranging quality and motion assumptions. Martin-Escalona and Zola~\cite{martinescalona2026surveyfree} synthesize dense RTT radio maps from sparse measurements with physics-informed Gaussian process regression, maintaining sub-meter accuracy in favorable AP geometry but approaching 2~m under extrapolation. Such survey-reduction methods are complementary to the present work, which studies how a forest should be configured for a given, possibly sparse, radio map.
+
+% ============================================================
+\subsection{Uncertainty-Aware Wi-Fi Localization}
+\label{subsec:rw_uncertainty}
+
+Most localization methods return only a point estimate, although wireless fingerprints are affected by temporal variations, NLOS propagation, and spatially heterogeneous errors. Feng et al.~\cite{feng2026robust} recently addressed this limitation by integrating conformal prediction with hybrid RTT--RSS Random Forest localization.
+
+Their hybrid predictor reports positioning values of approximately 0.60~m, 0.59~m, and 0.38~m for the Building, Apartment, and Office environments, respectively, and constructs rectangular and circular conformal prediction regions around the estimated position. The reported computational requirements are modest: on their largest Building dataset, model training required approximately 1.6~s on an Intel Core i9-12900K system, while generation of a conformal quantile required approximately 0.2~s.
+
+This work is particularly relevant because it demonstrates that uncertainty quantification can be added to a relatively lightweight tree-based predictor. Two aspects deserve attention. First, the reported localization values correspond to the mean of the per-coordinate RMSEs multiplied by the grid spacing; our reproduction shows that the corresponding true two-dimensional RMSE on the Building environment is 0.851~m rather than 0.60~m (Section~\ref{subsec:original_results}). Second, the point predictor uses every feature at every split, i.e., bagging, and the conformal threshold is computed treating every scan as an exchangeable calibration sample, although scans of the same RP are strongly correlated.
+
+% ============================================================
+\subsection{Randomization and Hyperparameters of Tree Ensembles}
+\label{subsec:rw_ensembles}
+
+The studies reviewed so far treat the learning algorithm largely as given and differ mainly in the measurements, fusion rules, and architectures they use. For tree ensembles, however, the way features are exposed to the learner is itself a design choice. Random feature subsampling was introduced as the random subspace method, in which each tree is grown on a random feature subset~\cite{ho1998random}, and was combined with bootstrap aggregation and per-split sampling in Random Forests~\cite{breiman2001random}, whose recommended default for regression is $m_{\mathrm{try}}=\lfloor p/3\rfloor$. Extremely randomized trees additionally draw split thresholds at random~\cite{geurts2006extremely}, whereas Rotation Forest builds each tree on PCA-rotated feature subsets and was designed for correlated features~\cite{rodriguez2006rotation}. Among RF hyperparameters, $m_{\mathrm{try}}$ has the largest influence on accuracy~\cite{probst2019hyperparameters}. Mentch and Zhou showed that per-split randomization acts as regularization, reducing the effective degrees of freedom of the ensemble, so that smaller $m_{\mathrm{try}}$ is favored when the signal-to-noise ratio is low~\cite{mentch2020randomization}. These results have not been examined for hybrid RTT--RSS fingerprints, in which the training radio map is the scarce resource and its density varies by an order of magnitude across deployments. They motivate the hypothesis tested here: a sparser radio map is a harder, noisier interpolation problem and should favor a smaller subspace ratio.
+
+% ============================================================
+\subsection{Validation and Calibration with Clustered Samples}
+\label{subsec:rw_clustered}
+
+Choosing such hyperparameters, and quantifying the uncertainty of the resulting predictor, both rely on held-out data, which in fingerprinting is structured by reference point. When observations are grouped in this way, random sample-level splitting yields optimistic estimates, and blocked or grouped cross-validation is recommended~\cite{roberts2017crossvalidation}. The same structure affects out-of-bag error, which is computed per sample and therefore evaluates each scan with trees trained on other scans of the same RP. For uncertainty, split-conformal prediction provides finite-sample marginal coverage under exchangeability~\cite{lei2018distribution}; cross-fitted variants such as jackknife+ and CV+ reuse data more efficiently~\cite{barber2021jackknife}. For two-layer hierarchical data, Dunn et al. showed that valid sets must account for the number of groups rather than the number of observations~\cite{Dunn02102023}. Fingerprinting datasets are such two-layer structures, but existing conformal indoor-positioning studies calibrate at the scan level.
+
+% ============================================================
+\subsection{Summary and Research Gap}
+\label{subsec:rw_gap}
+
+The reviewed literature reveals a clear accuracy--complexity--robustness trade-off. Classical RSS fingerprinting and model-based ranging employ relatively simple online computations but typically provide metre-level accuracy or require substantial radio-map calibration. Hybrid RTT--RSS fingerprinting improves precision, while learned fusion methods such as RRLoc and GTCN can reach strong sub-meter performance by introducing increasingly sophisticated feature-learning architectures. At the other end of the design space, recent proximity-based methods substantially reduce FTM traffic, memory consumption, and clustering complexity, but primarily optimize network scalability and AP selection. Uncertainty-aware work has additionally shown the value of conformal prediction, but uncertainty estimation and point-estimator design have largely been treated as separate problems.
+
+Therefore, the literature reviewed above leaves four questions open for hybrid RTT--RSS fingerprinting: (i) how much per-split feature subsampling matters relative to the full-feature forests used in practice, and how its optimal strength depends on radio-map density; (ii) how the subsampling ratio can be chosen when out-of-bag and sample-level validation are biased by repeated scans; (iii) whether an improvement found on one benchmark transfers, without retuning, to an independent dataset and across acquisition days; and (iv) whether conformal regions retain their coverage when calibration scans are clustered by RP.
+
+This motivates the present work. Rather than proposing a higher-capacity model, it characterizes a single, cheap design variable of tree-based fingerprinting, the subspace ratio, under RP-aware, external, and temporal evaluation, compares it with established tree ensembles, and examines the calibration of the resulting uncertainty regions.

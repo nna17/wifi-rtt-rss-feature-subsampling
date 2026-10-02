@@ -1,0 +1,12 @@
+FINAL PAPER EXPERIMENT ENVIRONMENT
+========================================
+run_timestamp_local: 2026-10-01T16:24:46.338172+01:00
+platform: Windows-11-10.0.26200-SP0
+python: 3.14.4
+python_executable: C:\Python314\python.exe
+scikit-learn: 1.9.1
+numpy: 2.4.4
+scipy: 1.17.1
+joblib: 1.6.0
+pandas: 3.0.3
+matplotlib: 3.10.9

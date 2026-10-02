@@ -1,0 +1,18 @@
+\begin{table*}[!t]
+\centering
+\caption{Five-fold RP-grouped validation on the official training RPs of the original benchmark. All metrics are computed on the pooled out-of-fold predictions. Each fold model is trained on about $80\%$ of the training RPs, i.e., on a sparser radio map than the official-test models.}
+\label{tab:grouped_cv}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lccccccccc}
+\toprule
+ & \multicolumn{3}{c}{Paper-compatible metric (m)} & \multicolumn{2}{c}{2D RMSE (m)} & \multicolumn{2}{c}{$P_{90}$ (m)} & \multicolumn{2}{c}{$P_{95}$ (m)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+Dataset & F1.0 & F0.7 & Impr. (\%) & F1.0 & F0.7 & F1.0 & F0.7 & F1.0 & F0.7 \\
+\midrule
+Building & 0.889 & \textbf{0.710} & 20.06 & 1.257 & \textbf{1.009} & 1.619 & \textbf{1.346} & 2.079 & \textbf{1.718} \\
+Office & 0.599 & \textbf{0.466} & 22.12 & 0.869 & \textbf{0.669} & 1.274 & \textbf{0.917} & 1.960 & \textbf{1.393} \\
+Apartment & 0.701 & \textbf{0.616} & 12.18 & 0.996 & \textbf{0.877} & 1.566 & \textbf{1.389} & 1.784 & \textbf{1.638} \\
+\bottomrule
+\end{tabular}
+\end{table*}

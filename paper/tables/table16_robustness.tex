@@ -1,0 +1,25 @@
+\begin{table*}[!t]
+\centering
+\caption{Robustness of the comparison $\rho=0.7$ versus $\rho=1$ over ten seeds (0--9). Improvement: relative error reduction (paper-compatible metric for the benchmark, 2D RMSE for EETAC), mean $\pm$ standard deviation over seeds. Wins: seeds in which $\rho=0.7$ has the lower error (or lower $P_{90}$). CI: 95\% paired RP-clustered bootstrap interval of the 2D RMSE difference ($\rho=0.7$ minus $\rho=1$, m) for seed 0; for the official tests, see Table~\ref{tab:original_accuracy}.}
+\label{tab:robustness}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccc}
+\toprule
+Dataset & Protocol & Improvement (\%) & Wins (error) & Wins ($P_{90}$) & 95\% CI of difference (m) \\
+\midrule
+Building & official test & 14.4 $\pm$ 0.7 & 10/10 & 10/10 & -- \\
+Apartment & official test & 5.2 $\pm$ 1.2 & 10/10 & 0/10 & -- \\
+Office & official test & 9.2 $\pm$ 1.5 & 10/10 & 10/10 & -- \\
+\midrule
+EETAC Medium & sample-level CV & 13.7 $\pm$ 1.3 & 10/10 & -- & [-0.086, -0.017] \\
+ & RP-grouped CV & 13.8 $\pm$ 0.5 & 10/10 & -- & [-0.575, -0.213] \\
+ & Day~1$\rightarrow$Day~2 & 5.6 $\pm$ 1.3 & 10/10 & -- & [-0.158, -0.031] \\
+ & Day~2$\rightarrow$Day~1 & 20.4 $\pm$ 1.7 & 10/10 & -- & [-0.603, -0.001] \\
+EETAC High & sample-level CV & 13.7 $\pm$ 1.1 & 10/10 & -- & [-0.080, -0.021] \\
+ & RP-grouped CV & 13.2 $\pm$ 0.3 & 10/10 & -- & [-0.551, -0.185] \\
+ & Day~1$\rightarrow$Day~2 & 0.2 $\pm$ 2.3 & 4/10 & -- & [-0.151, +0.036] \\
+ & Day~2$\rightarrow$Day~1 & 13.2 $\pm$ 1.4 & 10/10 & -- & [-0.427, +0.008] \\
+\bottomrule
+\end{tabular}
+\end{table*}

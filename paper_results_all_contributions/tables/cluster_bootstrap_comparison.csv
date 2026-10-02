@@ -1,0 +1,4 @@
+dataset,bootstrap_repeats,difference_definition,mean_difference_m,ci95_low_m,ci95_high_m,fraction_proposed_better
+building,1000,proposed_minus_baseline_m,-0.08570804584585667,-0.10942610512373402,-0.06384694858894052,1.0
+office,1000,proposed_minus_baseline_m,-0.026373799993249777,-0.04840025291834737,-0.007521530762662894,0.997
+apartment,1000,proposed_minus_baseline_m,-0.02727324922383044,-0.1066408031037767,0.05709723359051325,0.746

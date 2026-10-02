@@ -1,0 +1,20 @@
+\begin{table*}[!t]
+\centering
+\caption{Cross-day EETAC temporal generalization after acquisition-day frame alignment (seed 42). Each model is trained on all scans of one day and tested on all scans of the other. Negative improvements indicate that F0.7 is worse.}
+\label{tab:cross_day}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llcccccc}
+\toprule
+ & & \multicolumn{3}{c}{2D RMSE (m)} & \multicolumn{3}{c}{$P_{90}$ (m)} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}
+Scenario & Direction & F1.0 & F0.7 & Impr. (\%) & F1.0 & F0.7 & Impr. (\%) \\
+\midrule
+Medium (4 APs) & Day~1$\rightarrow$Day~2 & 1.331 & \textbf{1.253} & 5.89 & 2.105 & \textbf{2.060} & 2.13 \\
+ & Day~2$\rightarrow$Day~1 & 1.541 & \textbf{1.222} & 20.68 & 2.665 & \textbf{2.244} & 15.78 \\
+\midrule
+High (7 APs) & Day~1$\rightarrow$Day~2 & \textbf{1.378} & 1.394 & -1.16 & \textbf{2.169} & 2.331 & -7.46 \\
+ & Day~2$\rightarrow$Day~1 & 1.674 & \textbf{1.465} & 12.52 & 2.902 & \textbf{2.641} & 9.01 \\
+\bottomrule
+\end{tabular}
+\end{table*}

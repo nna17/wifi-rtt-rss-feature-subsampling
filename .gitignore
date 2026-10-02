@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+
+# Datasets (download separately, see dataset/README.md)
+dataset/*.csv
+dataset/*.txt
+
+# Large regenerated output
+**/grouped_oof_residuals.csv
+**/original_grouped_oof_residuals.csv
+
+# LaTeX build output
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.spl
+*.synctex.gz
+*.toc
+paper/*.pdf
+paper/**/*.pdf
+!paper/figures/**/*.pdf
+
+# Keep experiment logs (provenance)
+!audit_results/*.log
+!paper_results/logs/*.log
+
+# Jupyter
+.ipynb_checkpoints/

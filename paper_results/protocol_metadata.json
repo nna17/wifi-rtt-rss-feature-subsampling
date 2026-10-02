@@ -1,0 +1,39 @@
+{
+  "seed": 42,
+  "n_trees": 300,
+  "baseline_max_features": 1.0,
+  "proposed_max_features": 0.7,
+  "grouped_cv_folds": 5,
+  "calibration_fraction": 0.25,
+  "confidence_levels": [
+    0.9,
+    0.95
+  ],
+  "project_root": "C:\\Users\\Mo7AmjMiro\\Desktop\\ZZZZZ",
+  "original_engine": "C:\\Users\\Mo7AmjMiro\\Desktop\\ZZZZZ\\scripts\\original_dataset\\paper_all_contributions_wifi_rtt_rss.py",
+  "eetac_engine": "C:\\Users\\Mo7AmjMiro\\Desktop\\ZZZZZ\\scripts\\eetac\\eetac_external_validation_subspace_rf_v2.py",
+  "main_eetac_scenarios_requested": [
+    "Medium_4Google",
+    "High_4Google_3Linksys"
+  ],
+  "environment": {
+    "run_timestamp_local": "2026-10-01T16:24:46.338172+01:00",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.4",
+    "python_executable": "C:\\Python314\\python.exe",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "joblib": "1.6.0",
+    "pandas": "3.0.3",
+    "matplotlib": "3.10.9"
+  },
+  "scientific_notes": [
+    "F=0.7 is frozen before EETAC evaluation.",
+    "Original published comparison uses paper-compatible metric.",
+    "EETAC uses true 2D RMSE in metres.",
+    "Sample-level and RP-grouped EETAC protocols are separate.",
+    "Grouped-OOF empirical uncertainty is not ordinary split conformal.",
+    "EETAC Low/2-AP scenario is excluded from main tables."
+  ]
+}

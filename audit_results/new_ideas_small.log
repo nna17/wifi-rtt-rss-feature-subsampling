@@ -1,0 +1,95 @@
+[14:45:03] 3 office multilateration alone: {'paper_metric_m': 0.6383870819528831, 'rmse2d_m': 0.9038728870466181, 'p90_m': 1.4180703722747896}
+[14:45:09] 3/4 office s0 base F1.0 test=0.3765 cv=0.6047 cv2d=0.8777
+[14:45:15] 3/4 office s0 base F0.7 test=0.3376 cv=0.4576 cv2d=0.6568
+[14:45:20] 3/4 office s0 geo F1.0 test=0.4121 cv=0.4550 cv2d=0.6435
+[14:45:25] 3/4 office s0 geo F0.7 test=0.3424 cv=0.3916 cv2d=0.5555
+[14:45:31] 3/4 office s0 geo+diff F1.0 test=0.6013 cv=0.4578 cv2d=0.6477
+[14:45:37] 3/4 office s0 geo+diff F0.7 test=0.5239 cv=0.4148 cv2d=0.5870
+[14:45:48] 3/4 office s0 residual F1.0 test=0.2728 cv=0.4890 cv2d=0.6947
+[14:45:54] 3/4 office s0 residual F0.7 test=0.2806 cv=0.4912 cv2d=0.6967
+[14:45:59] 3/4 office s1 base F1.0 test=0.3671 cv=0.5990 cv2d=0.8674
+[14:46:05] 3/4 office s1 base F0.7 test=0.3386 cv=0.4676 cv2d=0.6703
+[14:46:10] 3/4 office s1 geo F1.0 test=0.4088 cv=0.4582 cv2d=0.6482
+[14:46:15] 3/4 office s1 geo F0.7 test=0.3427 cv=0.3978 cv2d=0.5641
+[14:46:21] 3/4 office s1 geo+diff F1.0 test=0.6022 cv=0.4608 cv2d=0.6520
+[14:46:26] 3/4 office s1 geo+diff F0.7 test=0.5449 cv=0.4100 cv2d=0.5802
+[14:46:36] 3/4 office s1 residual F1.0 test=0.2726 cv=0.4935 cv2d=0.7020
+[14:46:43] 3/4 office s1 residual F0.7 test=0.2771 cv=0.4858 cv2d=0.6910
+[14:46:48] 3/4 office s2 base F1.0 test=0.3749 cv=0.6010 cv2d=0.8707
+[14:46:53] 3/4 office s2 base F0.7 test=0.3417 cv=0.4657 cv2d=0.6688
+[14:46:56] 3/4 office s2 geo F1.0 test=0.4078 cv=0.4549 cv2d=0.6435
+[14:46:59] 3/4 office s2 geo F0.7 test=0.3432 cv=0.3975 cv2d=0.5639
+[14:47:02] 3/4 office s2 geo+diff F1.0 test=0.6027 cv=0.4610 cv2d=0.6522
+[14:47:06] 3/4 office s2 geo+diff F0.7 test=0.5206 cv=0.4156 cv2d=0.5882
+[14:47:10] 3/4 office s2 residual F1.0 test=0.2714 cv=0.4845 cv2d=0.6893
+[14:47:14] 3/4 office s2 residual F0.7 test=0.2800 cv=0.4838 cv2d=0.6871
+[14:47:14] 3 apartment multilateration alone: {'paper_metric_m': 0.9430643334462989, 'rmse2d_m': 1.3366454827290934, 'p90_m': 1.7735624883436567}
+[14:47:19] 3/4 apartment s0 base F1.0 test=0.5968 cv=0.7036 cv2d=0.9999
+[14:47:24] 3/4 apartment s0 base F0.7 test=0.5608 cv=0.6202 cv2d=0.8832
+[14:47:36] 3/4 apartment s0 geo F1.0 test=0.6085 cv=0.6556 cv2d=0.9295
+[14:47:47] 3/4 apartment s0 geo F0.7 test=0.5280 cv=0.5909 cv2d=0.8389
+[14:48:07] 3/4 apartment s0 geo+diff F1.0 test=0.5419 cv=0.7012 cv2d=0.9974
+[14:48:23] 3/4 apartment s0 geo+diff F0.7 test=0.4928 cv=0.6226 cv2d=0.8855
+[14:49:09] 3/4 apartment s0 residual F1.0 test=0.5906 cv=7.5854 cv2d=12.0101
+[14:49:44] 3/4 apartment s0 residual F0.7 test=0.5685 cv=7.5736 cv2d=11.9911
+[14:49:55] 3/4 apartment s1 base F1.0 test=0.5988 cv=0.7057 cv2d=1.0024
+[14:50:03] 3/4 apartment s1 base F0.7 test=0.5667 cv=0.6179 cv2d=0.8804
+[14:50:17] 3/4 apartment s1 geo F1.0 test=0.6111 cv=0.6542 cv2d=0.9274
+[14:50:27] 3/4 apartment s1 geo F0.7 test=0.5291 cv=0.5955 cv2d=0.8455
+[14:50:47] 3/4 apartment s1 geo+diff F1.0 test=0.5451 cv=0.6978 cv2d=0.9927
+[14:51:01] 3/4 apartment s1 geo+diff F0.7 test=0.4998 cv=0.6242 cv2d=0.8874
+[14:51:34] 3/4 apartment s1 residual F1.0 test=0.5949 cv=7.5871 cv2d=12.0101
+[14:52:07] 3/4 apartment s1 residual F0.7 test=0.5699 cv=7.5505 cv2d=11.9815
+[14:52:17] 3/4 apartment s2 base F1.0 test=0.5973 cv=0.7046 cv2d=1.0010
+[14:52:26] 3/4 apartment s2 base F0.7 test=0.5657 cv=0.6119 cv2d=0.8725
+[14:52:39] 3/4 apartment s2 geo F1.0 test=0.6058 cv=0.6552 cv2d=0.9288
+[14:52:50] 3/4 apartment s2 geo F0.7 test=0.5285 cv=0.5952 cv2d=0.8447
+[14:53:08] 3/4 apartment s2 geo+diff F1.0 test=0.5416 cv=0.6966 cv2d=0.9909
+[14:53:22] 3/4 apartment s2 geo+diff F0.7 test=0.4963 cv=0.6234 cv2d=0.8858
+[14:53:44] 3/4 apartment s2 residual F1.0 test=0.5880 cv=7.5411 cv2d=11.9325
+[14:54:20] 3/4 apartment s2 residual F0.7 test=0.5703 cv=7.5949 cv2d=12.0338
+[14:54:26] 5 office s0 done
+[14:54:32] 5 office s1 done
+[14:54:38] 5 office s2 done
+[14:54:45] 5 apartment s0 done
+[14:54:52] 5 apartment s1 done
+[14:54:59] 5 apartment s2 done
+[14:55:05] 1 office frac=1.0 rep=0 done
+[14:55:11] 1 office frac=0.75 rep=0 done
+[14:55:16] 1 office frac=0.75 rep=1 done
+[14:55:22] 1 office frac=0.5 rep=0 done
+[14:55:27] 1 office frac=0.5 rep=1 done
+[14:55:33] 1 office frac=0.25 rep=0 done
+[14:55:38] 1 office frac=0.25 rep=1 done
+[14:55:47] 1 apartment frac=1.0 rep=0 done
+[14:55:54] 1 apartment frac=0.75 rep=0 done
+[14:56:01] 1 apartment frac=0.75 rep=1 done
+[14:56:06] 1 apartment frac=0.5 rep=0 done
+[14:56:12] 1 apartment frac=0.5 rep=1 done
+[14:56:18] 1 apartment frac=0.25 rep=0 done
+[14:56:23] 1 apartment frac=0.25 rep=1 done
+[14:56:29] 2 office s0 RF-node-F0.7 test=0.3376 cv=0.4576
+[14:56:44] 2 office s0 tree-feature-0.7 test=0.3682 cv=0.4657
+[14:56:48] 2 office s0 tree-AP-0.7 test=0.3497 cv=0.4923
+[14:56:52] 2 office s0 tree-AP-0.5 test=0.3497 cv=0.4923
+[14:56:58] 2 office s1 RF-node-F0.7 test=0.3386 cv=0.4676
+[14:57:02] 2 office s1 tree-feature-0.7 test=0.3621 cv=0.4704
+[14:57:06] 2 office s1 tree-AP-0.7 test=0.3509 cv=0.4766
+[14:57:10] 2 office s1 tree-AP-0.5 test=0.3509 cv=0.4766
+[14:57:16] 2 office s2 RF-node-F0.7 test=0.3417 cv=0.4657
+[14:57:20] 2 office s2 tree-feature-0.7 test=0.3612 cv=0.4652
+[14:57:25] 2 office s2 tree-AP-0.7 test=0.3561 cv=0.4869
+[14:57:29] 2 office s2 tree-AP-0.5 test=0.3561 cv=0.4869
+[14:57:36] 2 apartment s0 RF-node-F0.7 test=0.5608 cv=0.6202
+[14:57:50] 2 apartment s0 tree-feature-0.7 test=0.6418 cv=0.6466
+[14:58:01] 2 apartment s0 tree-AP-0.7 test=0.6468 cv=0.6982
+[14:58:05] 2 apartment s0 tree-AP-0.5 test=0.8421 cv=0.8227
+[14:58:10] 2 apartment s1 RF-node-F0.7 test=0.5667 cv=0.6179
+[14:58:16] 2 apartment s1 tree-feature-0.7 test=0.6411 cv=0.6521
+[14:58:21] 2 apartment s1 tree-AP-0.7 test=0.6574 cv=0.7045
+[14:58:25] 2 apartment s1 tree-AP-0.5 test=0.8343 cv=0.8105
+[14:58:30] 2 apartment s2 RF-node-F0.7 test=0.5657 cv=0.6119
+[14:58:35] 2 apartment s2 tree-feature-0.7 test=0.6525 cv=0.6495
+[14:58:39] 2 apartment s2 tree-AP-0.7 test=0.6389 cv=0.7009
+[14:58:44] 2 apartment s2 tree-AP-0.5 test=0.8452 cv=0.8329
+[14:58:44] done

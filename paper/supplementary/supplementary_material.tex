@@ -1,0 +1,60 @@
+% Supplementary material for:
+% "Feature Subsampling in Hybrid Wi-Fi RTT--RSS Fingerprinting:
+%  Radio-Map Density, Ratio Selection, and Calibration With Clustered Scans"
+% Compile from this directory:  pdflatex supplementary_material.tex
+\documentclass[10pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\graphicspath{{../figures/results/}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\title{Supplementary Material\\ \large Feature Subsampling in Hybrid Wi-Fi RTT--RSS Fingerprinting: Radio-Map Density, Ratio Selection, and Calibration With Clustered Scans}
+\author{Nabil Abdelkader Nouri and Salim Naouri}
+\date{}
+
+\begin{document}
+\maketitle
+
+This document collects material that supports the main paper but is not needed to follow its argument: the evidence for the EETAC acquisition-day frame alignment, the effect of the alignment on all EETAC protocols, the EETAC ratio sweep, the density sweep with its spread over random RP subsets, screening experiments that were not retained, the computational cost of the 300-tree models, single-split uncertainty regions with covariance-aware ellipses, and figures that were moved from the main paper to shorten it. All tables are generated from the released experiment outputs by \texttt{scripts/extensions/make\_supplementary.py}.
+
+\section{EETAC Acquisition-Day Frame Alignment}
+
+Table~\ref{tab:s_frame_audit} gives the evidence for the mirrored coordinate frame of the second EETAC acquisition day, and Table~\ref{tab:s_alignment} shows its effect. Without alignment, the RP-grouped and cross-day errors exceed 4~m; after alignment, cross-day errors are 1.2--1.7~m. In both cases $\rho=0.7$ is better than $\rho=1$.
+
+\section{EETAC Ratio Sweep and Density Sweep}
+
+Table~\ref{tab:s_eetac_ratio} reports the EETAC sweep summarized in the ratio-selection subsection of the paper, and Table~\ref{tab:s_density} gives the numerical values behind the density figure, including the standard deviation over ten random RP subsets.
+
+\section{Screening Experiments}
+
+Table~\ref{tab:s_screening} reports variants of the point predictor that were screened but not retained: per-tree random subspaces~\cite{ho1998random}, AP-level subspaces that keep each AP's RTT and RSS together, RTT multilateration features computed from the published AP coordinates, and a residual model that corrects a multilateration estimate. Table~\ref{tab:s_local} reports locally adaptive conformal regions that normalize the residual by the spread of the tree predictions.
+
+\section{Computational Cost and Single-Split Uncertainty Regions}
+
+Table~\ref{tab:s_efficiency} reports training time, inference time, and serialized size of the two 300-tree models. Table~\ref{tab:s_uncertainty} reports circular and covariance-aware elliptical regions for one calibration split (seed 42); their variability over repeated splits, and the comparison with group calibration, are given in the calibration table of the paper.
+
+\section{Tables Moved from the Main Paper}
+
+Table~\ref{tab:cross_day} gives the seed-42 cross-day results with all metrics, Table~\ref{tab:data_utilization} the cost of reserving calibration RPs for the point predictor, and Table~\ref{tab:compact_models} the values behind the model-size figure of the paper.
+
+\section{Additional Figures}
+
+Figures~\ref{fig:s_error_cdf}--\ref{fig:s_ratio_selection} were moved from the main paper to shorten it; Figs.~\ref{fig:s_original_accuracy}--\ref{fig:s_uncertainty_area} duplicate information given in tables.
+
+\input{supplementary_tables}
+\input{../tables/table06_cross_day.tex}
+\input{../tables/table08_data_utilization.tex}
+\input{../tables/table13_compact_models.tex}
+\clearpage
+\input{supplementary_figures}
+
+\begin{thebibliography}{1}
+\bibitem{ho1998random}
+T.~K. Ho, ``The random subspace method for constructing decision forests,'' \emph{IEEE Trans. Pattern Anal. Mach. Intell.}, vol.~20, no.~8, pp.~832--844, 1998.
+\end{thebibliography}
+
+\end{document}

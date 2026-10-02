@@ -1,0 +1,30 @@
+\begin{table*}[!t]
+\centering
+\caption{Compact forests. Serialized model size (Python pickle), single-thread inference time per scan, training time (20 threads, Intel Core i5-13500HX), and official-test accuracy. Error: paper-compatible metric (m); RMSE: true 2D RMSE (m).}
+\label{tab:compact_models}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccccc}
+\toprule
+Dataset & $\rho$ & Trees & Min. leaf & Size (MB) & Inference ($\mu$s/scan) & Train (s) & Error (m) & 2D RMSE (m) \\
+\midrule
+Building & 1.0 & 300 & 1 & 58.79 & 13.2 & 9.92 & 0.605 & 0.859 \\
+ & 0.7 & 300 & 1 & 64.31 & 27.7 & 13.35 & 0.526 & 0.751 \\
+ & 0.7 & 100 & 1 & 21.45 & 5.6 & 3.12 & 0.526 & 0.750 \\
+ & 0.7 & 50 & 1 & 10.71 & 2.2 & 1.10 & 0.536 & 0.764 \\
+ & 0.7 & 50 & 5 & 8.49 & 1.8 & 1.12 & 0.548 & 0.782 \\
+\midrule
+Apartment & 1.0 & 300 & 1 & 13.31 & 36.7 & 1.73 & 0.597 & 0.863 \\
+ & 0.7 & 300 & 1 & 14.96 & 61.4 & 1.25 & 0.561 & 0.807 \\
+ & 0.7 & 100 & 1 & 4.98 & 14.4 & 0.49 & 0.555 & 0.798 \\
+ & 0.7 & 50 & 1 & 2.49 & 8.5 & 0.28 & 0.566 & 0.815 \\
+ & 0.7 & 50 & 5 & 1.93 & 5.2 & 0.23 & 0.595 & 0.862 \\
+\midrule
+Office & 1.0 & 300 & 1 & 2.85 & 67.4 & 0.80 & 0.377 & 0.533 \\
+ & 0.7 & 300 & 1 & 3.40 & 77.8 & 0.84 & 0.338 & 0.478 \\
+ & 0.7 & 100 & 1 & 1.13 & 19.6 & 0.30 & 0.338 & 0.478 \\
+ & 0.7 & 50 & 1 & 0.56 & 10.4 & 0.17 & 0.342 & 0.484 \\
+ & 0.7 & 50 & 5 & 0.51 & 14.0 & 0.19 & 0.352 & 0.497 \\
+\bottomrule
+\end{tabular}
+\end{table*}

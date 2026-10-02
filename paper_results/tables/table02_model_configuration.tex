@@ -1,0 +1,12 @@
+\begin{table}
+\caption{Random Forest configurations used in the primary comparison.}
+\label{tab:final_model_configuration}
+\begin{tabular}{llrrlrll}
+\toprule
+Configuration & Role & Trees & max\_features & Maximum depth & Minimum leaf & Bootstrap & RP-grouped selection \\
+\midrule
+RF300-F1.0 & Full-feature baseline & 300 & 1.0000 & None & 1 & Yes & No retuning \\
+RF300-F0.7 & Proposed random-subspace RF & 300 & 0.7000 & None & 1 & Yes & Frozen before EETAC \\
+\bottomrule
+\end{tabular}
+\end{table}
